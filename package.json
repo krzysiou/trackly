@@ -1,0 +1,41 @@
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "clean": "rm -rf .next",
+    "lint": "next lint"
+  },
+  "devDependencies": {
+    "@types/node": "20.8.10",
+    "@types/react": "^18.2.15",
+    "@types/uuid": "^9.0.6",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "babel-plugin-styled-components": "^2.1.4",
+    "eslint": "^8.45.0",
+    "eslint-config-next": "^13.5.6",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-check-file": "^2.4.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "axios": "^1.5.1",
+    "js-cookie": "^3.0.5",
+    "next": "^13.5.6",
+    "nodesi": "^1.17.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.64.1",
+    "styled-components": "^6.0.8"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
