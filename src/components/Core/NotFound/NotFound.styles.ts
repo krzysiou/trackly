@@ -1,7 +1,10 @@
 import { styled } from 'styled-components';
 
 const NotFoundStyled = styled.div`
-  color: red;
+  .notfound-section {
+    border-top: none;
+    margin-top: 4rem;
+  }
 `;
 
 export { NotFoundStyled };

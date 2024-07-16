@@ -4,13 +4,15 @@ import { createGlobalStyle } from 'styled-components';
 
 import { styleVariables } from './utils/styleVariables';
 
-const { fontFamily, colors } = styleVariables;
+const { colors } = styleVariables;
 
 const Globals = createGlobalStyle`
   body {
-    font-family: ${fontFamily};
-    color: ${colors.main};
-    background-color: ${colors.light};
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: ${colors.cadetGray};
+    background-color: ${colors.abyssBlue};
   }
 `;
 

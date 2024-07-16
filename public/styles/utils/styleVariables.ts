@@ -1,18 +1,26 @@
 type Colors = {
-  main: string;
-  light: string;
+  white: string;
+  pictonBlue: string;
+  gunmetal: string;
+  cadetGray: string;
+  oxfordBlue: string;
+  abyssBlue: string;
+  charcoal: string;
 };
 
 type StyleVariables = {
-  fontFamily: string;
   colors: Colors;
 };
 
 const styleVariables: StyleVariables = {
-  fontFamily: 'Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif',
   colors: {
-    main: '#000000',
-    light: '#ffffff',
+    white: '#FFFFFF',
+    pictonBlue: '#0EA5E9',
+    gunmetal: '#1E313B',
+    cadetGray: '#94A3B8',
+    oxfordBlue: '#0F172A',
+    abyssBlue: `#0B111E`,
+    charcoal: '#334155',
   },
 };
 
