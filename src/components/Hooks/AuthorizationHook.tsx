@@ -75,12 +75,16 @@ const useAuthorization = () => {
 
   const signOut = async () => {
     try {
+      window.alert('start of sign out');
       await axios.post(`${apiUrl}/logout`, {}, { withCredentials: true });
+      window.alert('after request');
       await Cookies.remove('isLoggedIn');
+      window.alert('after cookie deletion');
       setIsLoggedIn(false);
 
       router.push('/');
     } catch (error) {
+      window.alert(error);
       console.error(error.response?.data?.message);
     }
   };

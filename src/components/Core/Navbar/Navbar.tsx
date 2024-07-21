@@ -53,7 +53,6 @@ const Navbar: React.FC = () => {
     <button
       className="header-link"
       onClick={() => {
-        window.alert('testing');
         signOut();
         closeMenu();
       }}
