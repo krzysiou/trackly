@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { config } from '../../config/config';
 
-const { apiUrl, sessionCookieName } = config;
+const { apiUrl } = config;
 
 const useAuthorization = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -14,9 +14,9 @@ const useAuthorization = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const sessionCookie = Cookies.get(sessionCookieName);
+    const hasSession = Cookies.get('isLoggedIn');
 
-    if (sessionCookie) {
+    if (hasSession) {
       setIsLoggedIn(true);
 
       return;
@@ -31,7 +31,7 @@ const useAuthorization = () => {
     password: string
   ) => {
     try {
-      await axios.post(
+      const { data } = await axios.post(
         `${apiUrl}/login`,
         {
           username,
@@ -39,6 +39,9 @@ const useAuthorization = () => {
         },
         { withCredentials: true }
       );
+
+      await Cookies.set('isLoggedIn', data?.isLoggedIn);
+      setIsLoggedIn(true);
 
       router.push('/account');
     } catch (error) {
@@ -52,7 +55,7 @@ const useAuthorization = () => {
     password: string
   ) => {
     try {
-      await axios.post(
+      const { data } = await axios.post(
         `${apiUrl}/register`,
         {
           username,
@@ -60,6 +63,9 @@ const useAuthorization = () => {
         },
         { withCredentials: true }
       );
+
+      await Cookies.set('isLoggedIn', data?.isLoggedIn);
+      setIsLoggedIn(true);
 
       router.push('/account');
     } catch (error) {
