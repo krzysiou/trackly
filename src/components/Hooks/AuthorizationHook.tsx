@@ -78,7 +78,7 @@ const useAuthorization = () => {
       await axios.post(`${apiUrl}/logout`, {}, { withCredentials: true });
       await Cookies.remove('isLoggedIn');
       setIsLoggedIn(false);
-
+      window.alert(isLoggedIn);
       router.push('/');
     } catch (error) {
       console.error(error.response?.data?.message);

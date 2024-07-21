@@ -53,8 +53,8 @@ const Navbar: React.FC = () => {
     <button
       className="header-link"
       onClick={() => {
-        closeMenu();
         signOut();
+        closeMenu();
       }}
     >
       Sign out
