@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { NavbarStyled } from './Navbar.styles';
 import { Dropdown } from './Dropdown/Dropdown';
@@ -13,39 +14,51 @@ const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { isLoggedIn, signOut } = useAuthorization();
+  const router = useRouter();
 
   const handleOpen = () => setOpen(!open);
   const closeMenu = () => setOpen(false);
 
   const dropdownTrigger = (
-    <button onClick={handleOpen}>
+    <button onClick={handleOpen} className="menu-icon">
       <MenuIcon />
     </button>
   );
 
   const aboutLink = (
-    <Link href="/about" className="header-link" onClick={closeMenu}>
+    <button
+      className="header-link"
+      onClick={() => {
+        closeMenu();
+        router.push('/about');
+      }}
+    >
       About
-    </Link>
+    </button>
   );
 
   const galleryLink = (
-    <Link href="/gallery" className="header-link" onClick={closeMenu}>
+    <button
+      className="header-link"
+      onClick={() => {
+        closeMenu();
+        router.push('/gallery');
+      }}
+    >
       Gallery
-    </Link>
+    </button>
   );
 
   const logoutLink = isLoggedIn && (
-    <Link
-      href="/"
+    <button
       className="header-link"
       onClick={() => {
-        signOut();
         closeMenu();
+        signOut();
       }}
     >
       Sign out
-    </Link>
+    </button>
   );
 
   return (

@@ -51,7 +51,10 @@ const NavbarStyled = styled.div<NavbarStyledProps>`
     }
 
     .header-link {
+      font-family: 'Poppins', sans-serif;
       font-size: 16px;
+      background-color: transparent;
+      border: none;
       font-weight: 400;
       color: ${colors.white};
       border-bottom: 2px solid ${colors.oxfordBlue};
@@ -66,7 +69,7 @@ const NavbarStyled = styled.div<NavbarStyledProps>`
     }
   }
 
-  button:last-of-type {
+  .menu-icon {
     display: block;
     border: none;
     background-color: transparent;

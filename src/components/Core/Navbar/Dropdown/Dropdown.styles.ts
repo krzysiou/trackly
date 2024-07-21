@@ -29,6 +29,8 @@ const DropdownStyled = styled.div`
       margin: 15px 0;
 
       .header-link {
+        background-color: transparent;
+        border: none;
         font-size: 16px;
         font-weight: 400;
         color: ${colors.white};
