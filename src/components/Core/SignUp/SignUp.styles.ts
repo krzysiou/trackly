@@ -55,7 +55,7 @@ const SignInStyled = styled.div`
         align-items: center;
         justify-content: space-between;
         width: 12rem;
-        height: 4rem;
+        height: 3rem;
         margin: 10px 0;
         padding: 15px;
         border-radius: 8px;
@@ -77,7 +77,7 @@ const SignInStyled = styled.div`
         }
 
         input {
-          height: 5rem;
+          height: 2rem;
           font-size: 18px;
           width: 9rem;
           color: ${styleVariables.colors.white};
