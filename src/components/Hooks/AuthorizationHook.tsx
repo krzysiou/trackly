@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { config } from '../../config/config';
 
-const { apiUrl } = config;
+const { apiUrl, sessionCookieName } = config;
 
 const useAuthorization = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
@@ -14,7 +14,7 @@ const useAuthorization = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const hasSession = Cookies.get('isLoggedIn');
+    const hasSession = Cookies.get(sessionCookieName);
 
     if (hasSession) {
       setIsLoggedIn(true);
@@ -31,16 +31,12 @@ const useAuthorization = () => {
     password: string
   ) => {
     try {
-      const { data } = await axios.post(
-        `${apiUrl}/login`,
-        {
-          username,
-          password,
-        },
-        { withCredentials: true }
-      );
+      const { data } = await axios.post(`${apiUrl}/login`, {
+        username,
+        password,
+      });
 
-      await Cookies.set('isLoggedIn', data?.isLoggedIn);
+      await Cookies.set(sessionCookieName, data?.accessToken);
       setIsLoggedIn(true);
 
       router.push('/account');
@@ -55,16 +51,12 @@ const useAuthorization = () => {
     password: string
   ) => {
     try {
-      const { data } = await axios.post(
-        `${apiUrl}/register`,
-        {
-          username,
-          password,
-        },
-        { withCredentials: true }
-      );
+      const { data } = await axios.post(`${apiUrl}/register`, {
+        username,
+        password,
+      });
 
-      await Cookies.set('isLoggedIn', data?.isLoggedIn);
+      await Cookies.set(sessionCookieName, data?.accessToken);
       setIsLoggedIn(true);
 
       router.push('/account');
@@ -74,19 +66,10 @@ const useAuthorization = () => {
   };
 
   const signOut = async () => {
-    try {
-      window.alert('start of sign out');
-      await axios.post(`${apiUrl}/logout`, {}, { withCredentials: true });
-      window.alert('after request');
-      await Cookies.remove('isLoggedIn');
-      window.alert('after cookie deletion');
-      setIsLoggedIn(false);
+    await Cookies.remove(sessionCookieName);
+    setIsLoggedIn(false);
 
-      router.push('/');
-    } catch (error) {
-      window.alert(error);
-      console.error(error.response?.data?.message);
-    }
+    router.push('/');
   };
 
   return { isLoggedIn, signIn, signUp, signOut };
