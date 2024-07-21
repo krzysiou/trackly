@@ -4,7 +4,7 @@ import { mediaQuery } from '../../../../public/styles/utils/mediaQuery';
 import { styleVariables } from '../../../../public/styles/utils/styleVariables';
 
 type SectioNStyledParams = {
-  align: 'left' | 'right';
+  align: 'left' | 'right' | 'center';
 };
 
 const SectionStyled = styled.div<SectioNStyledParams>`
@@ -31,12 +31,24 @@ const SectionStyled = styled.div<SectioNStyledParams>`
 
     .section-wrapper {
       display: flex;
-      align-items: ${(props) =>
-        props.align === 'left' ? 'flex-start' : 'flex-end'};
       justify-content: center;
       flex-direction: column;
       width: 100%;
       margin: 4rem 1.5rem;
+
+      align-items: ${(props) => {
+        switch (props.align) {
+          case 'left': {
+            return 'flex-start';
+          }
+          case 'right': {
+            return 'flex-end';
+          }
+          case 'center': {
+            return 'center';
+          }
+        }
+      }};
 
       ${mediaQuery['web']} {
         width: 60rem;
@@ -44,11 +56,23 @@ const SectionStyled = styled.div<SectioNStyledParams>`
 
       .container {
         display: flex;
-        align-items: ${(props) =>
-          props.align === 'left' ? 'flex-start' : 'flex-end'};
         justify-content: center;
         flex-direction: column;
         width: 90%;
+
+        align-items: ${(props) => {
+          switch (props.align) {
+            case 'left': {
+              return 'flex-start';
+            }
+            case 'right': {
+              return 'flex-end';
+            }
+            case 'center': {
+              return 'center';
+            }
+          }
+        }};
 
         .section-image img {
           margin-bottom: 1.5rem;

@@ -20,36 +20,32 @@ const Navbar: React.FC = () => {
     </button>
   );
 
-  const homeLink = (
-    <Link href="/" className="header-link" onClick={closeMenu}>
-      Home
-    </Link>
-  );
-
   const aboutLink = (
     <Link href="/about" className="header-link" onClick={closeMenu}>
       About
     </Link>
   );
 
-  const docsLink = (
-    <Link href="/docs" className="header-link" onClick={closeMenu}>
-      Docs
+  const galleryLink = (
+    <Link href="/gallery" className="header-link" onClick={closeMenu}>
+      Gallery
     </Link>
   );
 
   return (
     <NavbarStyled open={open}>
-      <FullLogoIcon />
+      <Link href="/">
+        <FullLogoIcon />
+      </Link>
+
       <Dropdown
         open={open}
         trigger={dropdownTrigger}
-        menu={[homeLink, aboutLink, docsLink]}
+        menu={[aboutLink, galleryLink]}
       />
       <div className="header-links">
-        {homeLink}
         {aboutLink}
-        {docsLink}
+        {galleryLink}
       </div>
     </NavbarStyled>
   );

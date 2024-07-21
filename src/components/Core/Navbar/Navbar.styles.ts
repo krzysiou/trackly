@@ -24,6 +24,7 @@ const NavbarStyled = styled.div<NavbarStyledProps>`
 
   ${mediaQuery['web']} {
     height: 75px;
+    justify-content: flex-start;
   }
 
   img:first-of-type {
@@ -40,6 +41,7 @@ const NavbarStyled = styled.div<NavbarStyledProps>`
 
   .header-links {
     display: none;
+    margin-left: 60px;
 
     ${mediaQuery['web']} {
       display: flex;
@@ -74,7 +76,7 @@ const NavbarStyled = styled.div<NavbarStyledProps>`
     }
 
     > img {
-      width: 50px;
+      width: 25px;
     }
   }
 `;

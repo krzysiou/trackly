@@ -10,12 +10,16 @@ import { InfoIcon } from '../../Common/Icons/InfoIcon';
 import { QuestionIcon } from '../../Common/Icons/QuestionIcon';
 import { WrenchIcon } from '../../Common/Icons/WrenchIcon';
 import { Background } from '../../Common/Background/Background';
+import { useAuthorization } from '../../Hooks/AuthorizationHook';
 
 const Frontpage: React.FC = () => {
+  const { signOut } = useAuthorization();
+
   return (
     <FrontpageStyled>
       <Background />
       <Section name="hero" align="left">
+        <Button label="Logout" callback={signOut} />
         <h1>
           Unlock the power of data with our cutting-edge analytics platform.
         </h1>
@@ -25,7 +29,10 @@ const Frontpage: React.FC = () => {
           experience, drive conversions, and{' '}
           <span>make data-driven decisions</span> effortlessly.
         </p>
-        <Button label="Sign up" url="/register" />
+        <div className="buttons">
+          <Button label="Sign up" url="/signup" />
+          <Button label="Sign in" url="/signin" />
+        </div>
       </Section>
       <Section name="about" SectionImage={InfoIcon} align="left">
         <h2>About us</h2>

@@ -27,6 +27,14 @@ const FrontpageStyled = styled.div`
         line-height: 4rem;
       }
     }
+
+    .buttons {
+      display: flex;
+
+      button {
+        margin-right: 10px;
+      }
+    }
   }
 
   .documentation-section {
