@@ -7,9 +7,12 @@ import { NavbarStyled } from './Navbar.styles';
 import { Dropdown } from './Dropdown/Dropdown';
 import { FullLogoIcon } from '../../Common/Icons/FullLogoIcon';
 import { MenuIcon } from '../../Common/Icons/MenuIcon';
+import { useAuthorization } from '../../Hooks/AuthorizationHook';
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
+
+  const { isLoggedIn, signOut } = useAuthorization();
 
   const handleOpen = () => setOpen(!open);
   const closeMenu = () => setOpen(false);
@@ -32,6 +35,19 @@ const Navbar: React.FC = () => {
     </Link>
   );
 
+  const logoutLink = isLoggedIn && (
+    <Link
+      href="/"
+      className="header-link"
+      onClick={() => {
+        signOut();
+        closeMenu();
+      }}
+    >
+      Sign out
+    </Link>
+  );
+
   return (
     <NavbarStyled open={open}>
       <Link href="/">
@@ -41,11 +57,12 @@ const Navbar: React.FC = () => {
       <Dropdown
         open={open}
         trigger={dropdownTrigger}
-        menu={[aboutLink, galleryLink]}
+        menu={[aboutLink, galleryLink, logoutLink]}
       />
       <div className="header-links">
         {aboutLink}
         {galleryLink}
+        {logoutLink}
       </div>
     </NavbarStyled>
   );

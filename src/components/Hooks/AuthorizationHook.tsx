@@ -1,12 +1,29 @@
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 import { config } from '../../config/config';
 
-const { apiUrl } = config;
+const { apiUrl, sessionCookieName } = config;
 
 const useAuthorization = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
   const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const sessionCookie = Cookies.get(sessionCookieName);
+
+    if (sessionCookie) {
+      setIsLoggedIn(true);
+
+      return;
+    }
+
+    setIsLoggedIn(false);
+  }, [pathname]);
 
   const signIn = async (
     setError: React.Dispatch<React.SetStateAction<string>>,
@@ -25,7 +42,7 @@ const useAuthorization = () => {
 
       router.push('/account');
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error.response?.data?.message);
     }
   };
 
@@ -46,7 +63,7 @@ const useAuthorization = () => {
 
       router.push('/account');
     } catch (error) {
-      setError(error.response.data.message);
+      setError(error.response?.data?.message);
     }
   };
 
@@ -56,11 +73,11 @@ const useAuthorization = () => {
 
       router.push('/');
     } catch (error) {
-      console.error(error.response.data.message);
+      console.error(error.response?.data?.message);
     }
   };
 
-  return { signIn, signUp, signOut };
+  return { isLoggedIn, signIn, signUp, signOut };
 };
 
 export { useAuthorization };

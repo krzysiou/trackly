@@ -10,16 +10,12 @@ import { InfoIcon } from '../../Common/Icons/InfoIcon';
 import { QuestionIcon } from '../../Common/Icons/QuestionIcon';
 import { WrenchIcon } from '../../Common/Icons/WrenchIcon';
 import { Background } from '../../Common/Background/Background';
-import { useAuthorization } from '../../Hooks/AuthorizationHook';
 
 const Frontpage: React.FC = () => {
-  const { signOut } = useAuthorization();
-
   return (
     <FrontpageStyled>
       <Background />
       <Section name="hero" align="left">
-        <Button label="Logout" callback={signOut} />
         <h1>
           Unlock the power of data with our cutting-edge analytics platform.
         </h1>
