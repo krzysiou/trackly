@@ -3,10 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 
+import { GithubIcon } from '../../common/Icons/GithubIcon';
+import { LinkedInIcon } from '../../common/Icons/LinkedInIcon';
+import { LogoIcon } from '../../common/Icons/LogoIcon';
 import { FooterStyled } from './Footer.styles';
-import { GithubIcon } from '../../Common/Icons/GithubIcon';
-import { LinkedInIcon } from '../../Common/Icons/LinkedInIcon';
-import { LogoIcon } from '../../Common/Icons/LogoIcon';
 
 const githubLink = 'https://github.com/krzysiou';
 const linkedInLink = 'https://www.linkedin.com/in/krzysztof-tluszcz';

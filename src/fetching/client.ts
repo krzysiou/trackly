@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const httpClient = axios.create({
-  headers: {
-    'User-Agent': `Trackly ${axios.VERSION}`,
-  },
-});
+const httpClient = axios.create();
 
-const getFetch = async <T>(url: string, token: string) => {
+const getFetch = async <T>(
+  url: string,
+  token: string,
+  setError?: React.Dispatch<React.SetStateAction<string>>
+) => {
   try {
     const { data } = await httpClient.get<T>(url, {
       headers: { Authorization: token },
@@ -14,11 +14,17 @@ const getFetch = async <T>(url: string, token: string) => {
 
     return data;
   } catch (error) {
-    console.error(error);
+    if (setError) setError(error.response?.data?.message);
+    else console.error(error);
   }
 };
 
-const postFetch = async <T>(url: string, body: object, token: string) => {
+const postFetch = async <T>(
+  url: string,
+  body: object,
+  token: string,
+  setError?: React.Dispatch<React.SetStateAction<string>>
+) => {
   try {
     const { data } = await httpClient.post<T>(url, body, {
       headers: { Authorization: token },
@@ -26,7 +32,8 @@ const postFetch = async <T>(url: string, body: object, token: string) => {
 
     return data;
   } catch (error) {
-    console.error(error);
+    if (setError) setError(error.response?.data?.message);
+    else console.error(error);
   }
 };
 

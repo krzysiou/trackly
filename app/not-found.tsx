@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NotFound } from '../src/components/Core/NotFound/NotFound';
+import { NotFound } from '../src/components/core/NotFound/NotFound';
 
 export default async function Page() {
   return <NotFound />;

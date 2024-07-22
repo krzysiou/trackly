@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 import { SignInStyled } from './SignIn.styles';
-import { Section } from '../../Common/Section/Section';
-import { Background } from '../../Common/Background/Background';
-import { SignInIcon } from '../../Common/Icons/SignInIcon';
-import { Button } from '../../Common/Button/Button';
-import { DeleteIcon } from '../../Common/Icons/DeleteIcon';
-import { useAuthorization } from '../../Hooks/AuthorizationHook';
+import { Section } from '../../common/Section/Section';
+import { Background } from '../../common/Background/Background';
+import { SignInIcon } from '../../common/Icons/SignInIcon';
+import { Button } from '../../common/Button/Button';
+import { DeleteIcon } from '../../common/Icons/DeleteIcon';
+import { useAuthorization } from '../../hooks/AuthorizationHook';
 
 const SignIn: React.FC = () => {
   const [username, setUsername] = useState<string>();
@@ -44,6 +44,11 @@ const SignIn: React.FC = () => {
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               tabIndex={1}
+              onKeyDown={(event) => {
+                if (event.code === 'Enter') {
+                  signIn(setError, username, password);
+                }
+              }}
               required
             />
             {username && clear(setUsername)}
@@ -57,6 +62,11 @@ const SignIn: React.FC = () => {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               tabIndex={1}
+              onKeyDown={(event) => {
+                if (event.code === 'Enter') {
+                  signIn(setError, username, password);
+                }
+              }}
               required
             />
             {password && clear(setPassword)}

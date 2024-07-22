@@ -6,9 +6,9 @@ import { useRouter } from 'next/navigation';
 
 import { NavbarStyled } from './Navbar.styles';
 import { Dropdown } from './Dropdown/Dropdown';
-import { FullLogoIcon } from '../../Common/Icons/FullLogoIcon';
-import { MenuIcon } from '../../Common/Icons/MenuIcon';
-import { useAuthorization } from '../../Hooks/AuthorizationHook';
+import { FullLogoIcon } from '../../common/Icons/FullLogoIcon';
+import { MenuIcon } from '../../common/Icons/MenuIcon';
+import { useAuthorization } from '../../hooks/AuthorizationHook';
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -49,6 +49,18 @@ const Navbar: React.FC = () => {
     </button>
   );
 
+  const applicationsLink = session && (
+    <button
+      className="header-link"
+      onClick={() => {
+        closeMenu();
+        router.push('/applications');
+      }}
+    >
+      Applications
+    </button>
+  );
+
   const logoutLink = session && (
     <button
       className="header-link"
@@ -70,11 +82,12 @@ const Navbar: React.FC = () => {
       <Dropdown
         open={open}
         trigger={dropdownTrigger}
-        menu={[aboutLink, galleryLink, logoutLink]}
+        menu={[aboutLink, galleryLink, applicationsLink, logoutLink]}
       />
       <div className="header-links">
         {aboutLink}
         {galleryLink}
+        {applicationsLink}
         {logoutLink}
       </div>
     </NavbarStyled>

@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { BackgroundStyled } from './Background.styles';
-import { LogoIcon } from '../../Common/Icons/LogoIcon';
+import { LogoIcon } from '../Icons/LogoIcon';
 
 const Background: React.FC = () => {
   return (

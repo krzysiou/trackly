@@ -4,12 +4,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 import { SignInStyled } from './SignUp.styles';
-import { Section } from '../../Common/Section/Section';
-import { Background } from '../../Common/Background/Background';
-import { Button } from '../../Common/Button/Button';
-import { DeleteIcon } from '../../Common/Icons/DeleteIcon';
-import { useAuthorization } from '../../Hooks/AuthorizationHook';
-import { PenIcon } from '../../Common/Icons/PenIcon';
+import { Section } from '../../common/Section/Section';
+import { Background } from '../../common/Background/Background';
+import { Button } from '../../common/Button/Button';
+import { DeleteIcon } from '../../common/Icons/DeleteIcon';
+import { useAuthorization } from '../../hooks/AuthorizationHook';
+import { PenIcon } from '../../common/Icons/PenIcon';
 
 const SignUp: React.FC = () => {
   const [username, setUsername] = useState<string>();
@@ -42,6 +42,11 @@ const SignUp: React.FC = () => {
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               tabIndex={1}
+              onKeyDown={(event) => {
+                if (event.code === 'Enter') {
+                  signUp(setError, username, password);
+                }
+              }}
               required
             />
             {username && clear(setUsername)}
@@ -55,6 +60,11 @@ const SignUp: React.FC = () => {
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               tabIndex={1}
+              onKeyDown={(event) => {
+                if (event.code === 'Enter') {
+                  signUp(setError, username, password);
+                }
+              }}
               required
             />
             {password && clear(setPassword)}

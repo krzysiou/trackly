@@ -3,9 +3,9 @@
 import React from 'react';
 
 import { NotFoundStyled } from './NotFound.styles';
-import { Section } from '../../Common/Section/Section';
-import { Background } from '../../Common/Background/Background';
-import { SadIcon } from '../../Common/Icons/SadIcon';
+import { Section } from '../../common/Section/Section';
+import { Background } from '../../common/Background/Background';
+import { SadIcon } from '../../common/Icons/SadIcon';
 
 const NotFound: React.FC = () => {
   return (

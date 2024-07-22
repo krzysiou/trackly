@@ -41,13 +41,13 @@ const NavbarStyled = styled.div<NavbarStyledProps>`
 
   .header-links {
     display: none;
-    margin-left: 60px;
+    margin-left: 20px;
 
     ${mediaQuery['web']} {
       display: flex;
       width: auto;
       margin-right: 30px;
-      gap: 64px;
+      gap: 18px;
     }
 
     .header-link {

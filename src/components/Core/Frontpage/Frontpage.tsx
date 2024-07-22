@@ -2,14 +2,14 @@
 
 import React from 'react';
 
+import { List } from '../../common/List/List';
+import { Section } from '../../common/Section/Section';
+import { Button } from '../../common/Button/Button';
+import { InfoIcon } from '../../common/Icons/InfoIcon';
+import { QuestionIcon } from '../../common/Icons/QuestionIcon';
+import { WrenchIcon } from '../../common/Icons/WrenchIcon';
+import { Background } from '../../common/Background/Background';
 import { FrontpageStyled } from './Frontpage.styles';
-import { List } from '../../Common/List/List';
-import { Section } from '../../Common/Section/Section';
-import { Button } from '../../Common/Button/Button';
-import { InfoIcon } from '../../Common/Icons/InfoIcon';
-import { QuestionIcon } from '../../Common/Icons/QuestionIcon';
-import { WrenchIcon } from '../../Common/Icons/WrenchIcon';
-import { Background } from '../../Common/Background/Background';
 
 const Frontpage: React.FC = () => {
   return (
