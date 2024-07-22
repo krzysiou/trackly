@@ -5,11 +5,11 @@ import React from 'react';
 import { List } from '../../common/List/List';
 import { Section } from '../../common/Section/Section';
 import { Button } from '../../common/Button/Button';
-import { InfoIcon } from '../../common/Icons/InfoIcon';
 import { QuestionIcon } from '../../common/Icons/QuestionIcon';
 import { WrenchIcon } from '../../common/Icons/WrenchIcon';
 import { Background } from '../../common/Background/Background';
 import { FrontpageStyled } from './Frontpage.styles';
+import { InfoIcon } from '../../common/Icons/InfoIcon';
 
 const Frontpage: React.FC = () => {
   return (
@@ -64,12 +64,12 @@ const Frontpage: React.FC = () => {
         />
       </Section>
       <Section name="documentation" SectionImage={WrenchIcon} align="left">
-        <h2>Simple and readable OpenAPI documentation.</h2>
+        <h2>Simple and readable documentation.</h2>
         <p>
-          Our <span>OpenAPI</span> documentation is designed with simplicity and
+          Our <span>documentation</span> is designed with simplicity and
           readability in mind, ensuring that developers can{' '}
           <span>integrate</span> our analytics platform effortlessly. With
-          clear, concise instructions and well-organized sections, you can
+          clear, concise instructions and well-organized sections, you can{' '}
           <span>quickly</span> find the information you need. Our documentation
           includes comprehensive examples, detailed explanations of endpoints,
           parameters, and data structures, making it easy to{' '}
