@@ -8,21 +8,21 @@ import { config } from '../../config/config';
 const { apiUrl, sessionCookieName } = config;
 
 const useAuthorization = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [session, setSession] = useState<string>();
 
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    const hasSession = Cookies.get(sessionCookieName);
+    const session = Cookies.get(sessionCookieName);
 
-    if (hasSession) {
-      setIsLoggedIn(true);
+    if (session) {
+      setSession(session);
 
       return;
     }
 
-    setIsLoggedIn(false);
+    setSession(null);
   }, [pathname]);
 
   const signIn = async (
@@ -37,9 +37,9 @@ const useAuthorization = () => {
       });
 
       await Cookies.set(sessionCookieName, data?.accessToken);
-      setIsLoggedIn(true);
+      setSession(data?.accessToken);
 
-      router.push('/account');
+      router.push('/applications');
     } catch (error) {
       setError(error.response?.data?.message);
     }
@@ -57,9 +57,9 @@ const useAuthorization = () => {
       });
 
       await Cookies.set(sessionCookieName, data?.accessToken);
-      setIsLoggedIn(true);
+      setSession(data?.accessToken);
 
-      router.push('/account');
+      router.push('/applications');
     } catch (error) {
       setError(error.response?.data?.message);
     }
@@ -67,12 +67,12 @@ const useAuthorization = () => {
 
   const signOut = async () => {
     await Cookies.remove(sessionCookieName);
-    setIsLoggedIn(false);
+    setSession(null);
 
     router.push('/');
   };
 
-  return { isLoggedIn, signIn, signUp, signOut };
+  return { session, signIn, signUp, signOut };
 };
 
 export { useAuthorization };

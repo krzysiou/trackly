@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 
 import { ButtonStyled } from './Button.styles';
 
@@ -13,9 +12,9 @@ type ListParams = {
 
 const Button: React.FC<ListParams> = ({ label, url, callback }) => {
   const linkButtonComponent = url && (
-    <Link href={url}>
+    <a href={url}>
       <button className="button">{label}</button>
-    </Link>
+    </a>
   );
 
   const callbackButtonComponent = callback && (

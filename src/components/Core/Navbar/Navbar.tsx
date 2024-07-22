@@ -13,7 +13,7 @@ import { useAuthorization } from '../../Hooks/AuthorizationHook';
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const { isLoggedIn, signOut } = useAuthorization();
+  const { session, signOut } = useAuthorization();
   const router = useRouter();
 
   const handleOpen = () => setOpen(!open);
@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
     </button>
   );
 
-  const logoutLink = isLoggedIn && (
+  const logoutLink = session && (
     <button
       className="header-link"
       onClick={() => {
