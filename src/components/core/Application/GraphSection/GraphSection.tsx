@@ -18,11 +18,7 @@ type ApplicationsParams = {
   impressionData: ImpressionEvent[];
 };
 
-const GraphSection: React.FC<ApplicationsParams> = ({
-  applicationData,
-  engagementData,
-  impressionData,
-}) => {
+const GraphSection: React.FC<ApplicationsParams> = () => {
   return (
     <GraphSectionStyled>
       <Section name="graph" SectionImage={GraphIcon} align="left">

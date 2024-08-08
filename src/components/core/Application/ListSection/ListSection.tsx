@@ -18,11 +18,7 @@ type ApplicationsParams = {
   impressionData: ImpressionEvent[];
 };
 
-const ListSection: React.FC<ApplicationsParams> = ({
-  applicationData,
-  engagementData,
-  impressionData,
-}) => {
+const ListSection: React.FC<ApplicationsParams> = () => {
   return (
     <ListSectionStyled>
       <Section name="list" SectionImage={ListIcon} align="left">
