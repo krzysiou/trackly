@@ -5,21 +5,22 @@ import React from 'react';
 import { ButtonStyled } from './Button.styles';
 
 type ListParams = {
-  label: string;
+  Icon?: React.FC;
+  label?: string;
   url?: string;
   callback?: () => void;
 };
 
-const Button: React.FC<ListParams> = ({ label, url, callback }) => {
+const Button: React.FC<ListParams> = ({ Icon, label, url, callback }) => {
   const linkButtonComponent = url && (
     <a href={url}>
-      <button className="button">{label}</button>
+      <button className="button">{label || <Icon />}</button>
     </a>
   );
 
   const callbackButtonComponent = callback && (
     <button className="button" onClick={callback}>
-      {label}
+      {label || <Icon />}
     </button>
   );
 

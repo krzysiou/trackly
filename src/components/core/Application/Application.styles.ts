@@ -16,6 +16,23 @@ const ApplicationStyled = styled.div`
   .app-date {
     font-size: 0.8rem;
   }
+
+  .view-mode-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    .button {
+      width: 4rem;
+      height: 4rem;
+
+      img {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
 `;
 
 export { ApplicationStyled };

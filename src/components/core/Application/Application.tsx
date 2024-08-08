@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import type {
   EngagementEvent,
@@ -11,7 +11,14 @@ import type {
 import { Section } from '../../common/Section/Section';
 import { Background } from '../../common/Background/Background';
 import { ApplicationIcon } from '../../common/Icons/ApplicationIcon';
+import { ListSection } from './ListSection/ListSection';
+import { GraphSection } from './GraphSection/GraphSection';
 import { ApplicationStyled } from './Application.styles';
+import { Button } from '../../common/Button/Button';
+import { ListWhiteIcon } from '../../common/Icons/ListWhiteIcon';
+import { GraphWhiteIcon } from '../../common/Icons/GraphWhiteIcon';
+
+type ViewMode = 'list' | 'graph';
 
 type ApplicationsParams = {
   applicationData: ApplicationType;
@@ -24,6 +31,23 @@ const Application: React.FC<ApplicationsParams> = ({
   engagementData,
   impressionData,
 }) => {
+  const [mode, setMode] = useState<ViewMode>('list');
+
+  const viewModeComponent =
+    mode === 'list' ? (
+      <ListSection
+        applicationData={applicationData}
+        engagementData={engagementData}
+        impressionData={impressionData}
+      />
+    ) : (
+      <GraphSection
+        applicationData={applicationData}
+        engagementData={engagementData}
+        impressionData={impressionData}
+      />
+    );
+
   return (
     <ApplicationStyled>
       <Background />
@@ -40,7 +64,12 @@ const Application: React.FC<ApplicationsParams> = ({
           identify key patterns, and make data-driven decisions to{' '}
           <span>enhance</span> your application&apos;s impact.
         </p>
+        <div className="view-mode-buttons">
+          <Button Icon={ListWhiteIcon} callback={() => setMode('list')} />
+          <Button Icon={GraphWhiteIcon} callback={() => setMode('graph')} />
+        </div>
       </Section>
+      {viewModeComponent}
     </ApplicationStyled>
   );
 };
