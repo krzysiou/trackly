@@ -44,8 +44,9 @@ const ApplicationsStyled = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 9rem;
-      height: 3rem;
+      box-sizing: border-box;
+      width: 13rem;
+      height: 4rem;
       margin: 10px 0;
       margin-right: 1rem;
       padding: 15px;
@@ -56,6 +57,7 @@ const ApplicationsStyled = styled.div`
       ${mediaQuery['web']} {
         height: 1rem;
         width: 12rem;
+        box-sizing: inherit;
       }
 
       button {
@@ -85,6 +87,10 @@ const ApplicationsStyled = styled.div`
           outline-width: 0;
         }
       }
+    }
+
+    .button {
+      width: 13rem;
     }
   }
 `;
