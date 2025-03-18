@@ -7,6 +7,10 @@ const ListSectionStyled = styled.div`
     width: 100% !important;
   }
 
+  .no-data-message {
+    margin: 1rem 0 2rem !important;
+  }
+
   .headers {
     margin: 30px 0;
 

@@ -98,9 +98,13 @@ const ListSection: React.FC<ApplicationsParams> = ({
         setEngagementFilter(parsedInput);
       } else {
         setEngagementError('Input must be a valid MongoDB query');
+        setTimeout(() => setEngagementError(''), 3000);
+        setEngagementFilter({});
       }
     } catch (error) {
       setEngagementError('Input must be a valid MongoDB query');
+      setTimeout(() => setEngagementError(''), 3000);
+      setEngagementFilter({});
     }
   };
 
@@ -112,9 +116,13 @@ const ListSection: React.FC<ApplicationsParams> = ({
         setImpressionFilter(parsedInput);
       } else {
         setImpressionError('Input must be a valid MongoDB query');
+        setTimeout(() => setImpressionError(''), 3000);
+        setImpressionFilter({});
       }
     } catch (error) {
       setImpressionError('Input must be a valid MongoDB query');
+      setTimeout(() => setImpressionError(''), 3000);
+      setImpressionFilter({});
     }
   };
 
@@ -153,7 +161,7 @@ const ListSection: React.FC<ApplicationsParams> = ({
         </Box>
         <ImpressionTable
           impressionData={impressionData}
-          currentImpressionPage={currentEngagementPage}
+          currentImpressionPage={currentImpressionPage}
           setCurrentImpressionPage={setCurrentImpressionPage}
         />
         <Box
