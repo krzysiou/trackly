@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { getCookie } from 'cookies-next';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 
 import type {
   EngagementEvent,
@@ -34,6 +34,8 @@ const ListSection: React.FC<ApplicationsParams> = ({
   engagementData: initialEngagementData,
   impressionData: initialImpressionData,
 }) => {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
   const { id: appId } = applicationData;
 
   const [currentEngagementPage, setCurrentEngagementPage] = useState<number>(1);
@@ -138,26 +140,53 @@ const ListSection: React.FC<ApplicationsParams> = ({
     <ListSectionStyled>
       <Section name="list" SectionImage={ListIcon} align="left">
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems={'center'}
-          sx={{ width: '100%' }}
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: {
+              xs: 'flex-start',
+              md: 'center',
+            },
+            flexDirection: {
+              xs: 'column',
+              md: 'row',
+            },
+          }}
         >
           <h2>Impression Events</h2>
           {impressionError && (
-            <Typography color="#ff6262" sx={{ margin: '0 !important' }}>
+            <Typography sx={{ margin: '0 !important' }}>
               Error: {impressionError}
             </Typography>
           )}
         </Box>
-        <Box display={'flex'} alignItems={'center'} my={2} gap={1}>
+        <Box
+          display={'flex'}
+          alignItems={'center'}
+          my={2}
+          gap={1}
+          position={'relative'}
+          width={'100%'}
+        >
           <input
             type="text"
             placeholder="Enter MongoDB query"
             value={impressionInput}
+            style={{ width: isMobile ? '100%' : '18rem' }}
             onChange={(e) => setImpressionInput(e.target.value)}
           />
-          <Button Icon={SearchIcon} callback={handleImpressionSearch} />
+          {isMobile ? (
+            <button
+              type="button"
+              className="mobile-search"
+              onClick={handleImpressionSearch}
+            >
+              <SearchIcon width={20} height={20} />
+            </button>
+          ) : (
+            <Button Icon={SearchIcon} callback={handleImpressionSearch} />
+          )}
         </Box>
         <ImpressionTable
           impressionData={impressionData}
@@ -165,26 +194,53 @@ const ListSection: React.FC<ApplicationsParams> = ({
           setCurrentImpressionPage={setCurrentImpressionPage}
         />
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems={'center'}
-          sx={{ width: '100%' }}
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: {
+              xs: 'flex-start',
+              md: 'center',
+            },
+            flexDirection: {
+              xs: 'column',
+              md: 'row',
+            },
+          }}
         >
           <h2>Engagement Events</h2>
           {engagementError && (
-            <Typography color="#ff6262" sx={{ margin: '0 !important' }}>
+            <Typography sx={{ margin: '0 !important' }}>
               Error: {engagementError}
             </Typography>
           )}
         </Box>
-        <Box display={'flex'} alignItems={'center'} my={2} gap={1}>
+        <Box
+          display={'flex'}
+          alignItems={'center'}
+          my={2}
+          gap={1}
+          position={'relative'}
+          width={'100%'}
+        >
           <input
             type="text"
             placeholder="Enter MongoDB query"
             value={engagementInput}
+            style={{ width: isMobile ? '100%' : '18rem' }}
             onChange={(e) => setEngagementInput(e.target.value)}
           />
-          <Button Icon={SearchIcon} callback={handleEngagementSearch} />
+          {isMobile ? (
+            <button
+              type="button"
+              className="mobile-search"
+              onClick={handleEngagementSearch}
+            >
+              <SearchIcon width={20} height={20} />
+            </button>
+          ) : (
+            <Button Icon={SearchIcon} callback={handleEngagementSearch} />
+          )}
         </Box>
         <EngagementTable
           engagementData={engagementData}

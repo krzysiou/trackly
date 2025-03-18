@@ -3,8 +3,13 @@ import Image from 'next/image';
 
 import logo from '../../../../public/images/search.svg';
 
-const SearchIcon: React.FC = () => {
-  return <Image src={logo} width={40} height={40} alt="application" />;
+interface SearchIconProps {
+  width?: number;
+  height?: number;
+}
+
+const SearchIcon: React.FC<SearchIconProps> = ({ width = 40, height = 40 }) => {
+  return <Image src={logo} width={width} height={height} alt="application" />;
 };
 
 export { SearchIcon };

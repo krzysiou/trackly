@@ -11,6 +11,21 @@ const ListSectionStyled = styled.div`
     margin: 1rem 0 2rem !important;
   }
 
+  .mobile-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translate(20%, -50%);
+    background-color: ${styleVariables.colors.oxfordBlue};
+    padding: 10px;
+  }
+
   .headers {
     margin: 30px 0;
 
@@ -52,7 +67,6 @@ const ListSectionStyled = styled.div`
     height: 3rem;
     font-size: 18px;
     margin: 15px 0;
-    width: 18rem;
     padding: 0.5rem 1rem;
     border-radius: 5px;
     color: ${styleVariables.colors.white};

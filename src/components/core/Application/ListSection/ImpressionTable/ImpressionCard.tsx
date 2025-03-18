@@ -13,7 +13,7 @@ type ImpressionCardParams = {
 };
 
 const ImpressionCard: React.FC<ImpressionCardParams> = ({ event }) => {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -153,7 +153,7 @@ const ImpressionCard: React.FC<ImpressionCardParams> = ({ event }) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: isMobile ? 350 : 500,
+            width: isMobile ? 250 : 500,
             bgcolor: styleVariables.colors.abyssBlue,
             p: 4,
             borderRadius: 4,
