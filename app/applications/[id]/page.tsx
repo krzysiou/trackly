@@ -1,14 +1,21 @@
 import React from 'react';
+import { cookies } from 'next/headers';
 
 import { getEngagement } from '../../../src/fetching/get-engagement';
 import { getImpression } from '../../../src/fetching/get-impression';
 import { getApplication } from '../../../src/fetching/get-application';
 import { Application } from '../../../src/components/core/Application/Application';
+import { config } from '../../../src/config/config';
+
+const { sessionCookieName } = config;
 
 export default async function Page({ params }: { params: { id: string } }) {
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get(sessionCookieName).value;
+
   const applicationData = await getApplication(params.id);
-  const engagementData = await getEngagement(params.id, {});
-  const impressionData = await getImpression(params.id, {});
+  const engagementData = await getEngagement(params.id, {}, accessToken);
+  const impressionData = await getImpression(params.id, {}, accessToken);
 
   return (
     <Application

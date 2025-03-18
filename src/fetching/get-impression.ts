@@ -1,21 +1,19 @@
-import { cookies } from 'next/headers';
-
 import type { ImpressionEvent } from './types';
 
 import { config } from '../config/config';
 import { postFetch } from './client';
 
-const { sessionCookieName, apiUrl } = config;
+const { apiUrl } = config;
 
 const getImpression = async (
   applicationId: string,
-  queryObject: Record<string, Record<string, string>>
+  queryObject: Record<string, Record<string, string>>,
+  accessToken: string,
+  page: number = 1,
+  limit: number = 10
 ): Promise<ImpressionEvent[]> => {
-  const cookieStore = cookies();
-  const accessToken = cookieStore.get(sessionCookieName).value;
-
   return await postFetch<ImpressionEvent[]>(
-    `${apiUrl}/impression/get`,
+    `${apiUrl}/impression/get?page=${page}&limit=${limit}`,
     { applicationId, queryObject },
     accessToken
   );
