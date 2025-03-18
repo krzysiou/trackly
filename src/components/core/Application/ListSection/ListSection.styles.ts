@@ -35,6 +35,35 @@ const ListSectionStyled = styled.div`
     }
   }
 
+  .button {
+    height: 4rem;
+    width: 4rem;
+
+    img {
+      fill: green;
+    }
+  }
+
+  input {
+    height: 3rem;
+    font-size: 18px;
+    margin: 15px 0;
+    width: 18rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    color: ${styleVariables.colors.white};
+    border: 1px solid ${styleVariables.colors.charcoal};
+    background-color: ${styleVariables.colors.oxfordBlue};
+
+    &::placeholder {
+      color: ${styleVariables.colors.charcoal};
+    }
+
+    &:focus {
+      outline-width: 0;
+    }
+  }
+
   .events {
     margin-bottom: 100px;
     width: 100%;

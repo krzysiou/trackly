@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { getCookie } from 'cookies-next';
-import { Grid } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import type {
   EngagementEvent,
@@ -13,13 +13,13 @@ import type {
 import { Section } from '../../../common/Section/Section';
 import { ListIcon } from '../../../common/Icons/ListIcon';
 import { ListSectionStyled } from './ListSection.styles';
-import { ImpressionCard } from './ImpressionCard';
 import { getImpression } from '../../../../fetching/get-impression';
 import { config } from '../../../../config/config';
 import { getEngagement } from '../../../../fetching/get-engagement';
-import { ChevronLeft } from '../../../common/Icons/ChevronLeft';
-import { ChevronRight } from '../../../common/Icons/ChevronRight';
-import { EngagementCard } from './EngagementCard';
+import { ImpressionTable } from './ImpressionTable/ImpressionTable';
+import { EngagementTable } from './EngagementTable/EngagementTable';
+import { Button } from '../../../common/Button/Button';
+import { SearchIcon } from '../../../common/Icons/SearchIcon';
 
 const { sessionCookieName } = config;
 
@@ -34,92 +34,88 @@ const ListSection: React.FC<ApplicationsParams> = ({
   engagementData: initialEngagementData,
   impressionData: initialImpressionData,
 }) => {
-  const [currentEngagementPage, setCurrentEngagementPage] = useState<number>(1);
-  const [isEngagementLoading, setIsEngagementLoading] =
-    useState<boolean>(false);
+  const { id: appId } = applicationData;
 
+  const [currentEngagementPage, setCurrentEngagementPage] = useState<number>(1);
+  const [engagementInput, setEngagementInput] = useState<string>('');
+  const [engagementError, setEngagementError] = useState<string>('');
   const [engagementData, setEngagementData] = useState<EngagementEvent[]>(
     initialEngagementData
   );
+  const [engagementFilter, setEngagementFilter] = useState<Record<
+    string,
+    Record<string, string>
+  > | null>(null);
 
   const [currentImpressionPage, setCurrentImpressionPage] = useState<number>(1);
-  const [isImpressionLoading, setIsImpressionLoading] =
-    useState<boolean>(false);
-
+  const [impressionInput, setImpressionInput] = useState<string>('');
+  const [impressionError, setImpressionError] = useState<string>('');
   const [impressionData, setImpressionData] = useState<ImpressionEvent[]>(
     initialImpressionData
   );
-
-  const { id: appId } = applicationData;
-
-  const previousEngagementButtonDisabled = currentEngagementPage === 1;
-  const nextEngagementButtonDisabled =
-    isEngagementLoading || engagementData.length === 0;
-
-  const previousImpressionButtonDisabled = currentImpressionPage === 1;
-  const nextImpressionButtonDisabled =
-    isImpressionLoading || impressionData.length === 0;
+  const [impressionFilter, setImpressionFilter] = useState<Record<
+    string,
+    Record<string, string>
+  > | null>(null);
 
   const getEngagementData = useCallback(
     async (page: number) => {
-      setIsEngagementLoading(true);
-
       const accessToken = getCookie(sessionCookieName)?.toString();
       const fetchedEngagementData = await getEngagement(
         appId,
-        {},
+        engagementFilter || {},
         accessToken,
         page,
         10
       );
 
       setEngagementData(fetchedEngagementData);
-      setIsEngagementLoading(false);
     },
-    [appId]
+    [appId, engagementFilter]
   );
 
   const getImpressionData = useCallback(
     async (page: number) => {
-      setIsImpressionLoading(true);
-
       const accessToken = getCookie(sessionCookieName)?.toString();
       const fetchedImpressionData = await getImpression(
         appId,
-        {},
+        impressionFilter || {},
         accessToken,
         page,
         10
       );
 
       setImpressionData(fetchedImpressionData);
-      setIsImpressionLoading(false);
     },
-    [appId]
+    [appId, impressionFilter]
   );
 
-  const handleNextEngagementPage = () => {
-    if (engagementData.length === 0) return;
-    if (isEngagementLoading) return;
-
-    setCurrentEngagementPage((prevPage) => prevPage + 1);
+  const handleEngagementSearch = () => {
+    try {
+      const parsedInput = JSON.parse(engagementInput);
+      console.log(parsedInput);
+      if (typeof parsedInput === 'object' && !Array.isArray(parsedInput)) {
+        setEngagementFilter(parsedInput);
+      } else {
+        setEngagementError('Input must be a valid MongoDB query');
+      }
+    } catch (error) {
+      setEngagementError('Input must be a valid MongoDB query');
+    }
   };
 
-  const handlePreviousEngagementPage = () => {
-    if (currentEngagementPage === 1) return;
-    setCurrentEngagementPage((prevPage) => Math.max(prevPage - 1, 1));
-  };
+  const handleImpressionSearch = () => {
+    try {
+      const parsedInput = JSON.parse(impressionInput);
 
-  const handleNextImpressionPage = () => {
-    if (impressionData.length === 0) return;
-    if (isImpressionLoading) return;
-
-    setCurrentImpressionPage((prevPage) => prevPage + 1);
-  };
-
-  const handlePreviousImpressionPage = () => {
-    if (currentImpressionPage === 1) return;
-    setCurrentImpressionPage((prevPage) => Math.max(prevPage - 1, 1));
+      if (typeof parsedInput === 'object' && !Array.isArray(parsedInput)) {
+        setImpressionFilter(parsedInput);
+      } else {
+        setImpressionError('Input must be a valid MongoDB query');
+      }
+    } catch (error) {
+      setImpressionError('Input must be a valid MongoDB query');
+    }
   };
 
   useEffect(() => {
@@ -130,97 +126,63 @@ const ListSection: React.FC<ApplicationsParams> = ({
     getImpressionData(currentImpressionPage);
   }, [getImpressionData, currentImpressionPage]);
 
-  const engagementEventsComponent = engagementData.map((event) => {
-    return <EngagementCard key={event.id} event={event} />;
-  });
-
-  const impressionEventsComponent = impressionData.map((event) => {
-    return <ImpressionCard key={event.id} event={event} />;
-  });
-
   return (
     <ListSectionStyled>
       <Section name="list" SectionImage={ListIcon} align="left">
-        <div className="events">
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems={'center'}
+          sx={{ width: '100%' }}
+        >
           <h2>Impression Events</h2>
-          {impressionEventsComponent.length !== 0 ? (
-            <Grid container className="headers">
-              <Grid item xs={4}>
-                <p className="header">Target Id</p>
-              </Grid>
-              <Grid item xs={1}>
-                <p className="header">Action</p>
-              </Grid>
-              <Grid item xs={2}>
-                <p className="header">Actor</p>
-              </Grid>
-              <Grid item xs={2}>
-                <p className="header">Navigation</p>
-              </Grid>
-              <Grid item xs={3}>
-                <p className="header last">Date</p>
-              </Grid>
-              {impressionEventsComponent}
-            </Grid>
-          ) : (
-            <p className="no-data-message">There are no impression events.</p>
+          {impressionError && (
+            <Typography color="#ff6262" sx={{ margin: '0 !important' }}>
+              Error: {impressionError}
+            </Typography>
           )}
-          <div className="pagination-controls">
-            <button
-              onClick={handlePreviousImpressionPage}
-              disabled={previousImpressionButtonDisabled}
-            >
-              <ChevronLeft />
-            </button>
-            <span>Page {currentImpressionPage}</span>
-            <button
-              onClick={handleNextImpressionPage}
-              disabled={nextImpressionButtonDisabled}
-            >
-              <ChevronRight />
-            </button>
-          </div>
-        </div>
-        <div className="events">
+        </Box>
+        <Box display={'flex'} alignItems={'center'} my={2} gap={1}>
+          <input
+            type="text"
+            placeholder="Enter MongoDB query"
+            value={impressionInput}
+            onChange={(e) => setImpressionInput(e.target.value)}
+          />
+          <Button Icon={SearchIcon} callback={handleImpressionSearch} />
+        </Box>
+        <ImpressionTable
+          impressionData={impressionData}
+          currentImpressionPage={currentEngagementPage}
+          setCurrentImpressionPage={setCurrentImpressionPage}
+        />
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems={'center'}
+          sx={{ width: '100%' }}
+        >
           <h2>Engagement Events</h2>
-          {engagementEventsComponent.length !== 0 ? (
-            <Grid container className="headers">
-              <Grid item xs={4}>
-                <p className="header">Target Id</p>
-              </Grid>
-              <Grid item xs={1}>
-                <p className="header">Action</p>
-              </Grid>
-              <Grid item xs={2}>
-                <p className="header">Actor</p>
-              </Grid>
-              <Grid item xs={2}>
-                <p className="header">Navigation</p>
-              </Grid>
-              <Grid item xs={3}>
-                <p className="header last">Date</p>
-              </Grid>
-              {engagementEventsComponent}
-            </Grid>
-          ) : (
-            <p className="no-data-message">There are no engagement events.</p>
+          {engagementError && (
+            <Typography color="#ff6262" sx={{ margin: '0 !important' }}>
+              Error: {engagementError}
+            </Typography>
           )}
-          <div className="pagination-controls">
-            <button
-              onClick={handlePreviousEngagementPage}
-              disabled={previousEngagementButtonDisabled}
-            >
-              <ChevronLeft />
-            </button>
-            <span>Page {currentEngagementPage}</span>
-            <button
-              onClick={handleNextEngagementPage}
-              disabled={nextEngagementButtonDisabled}
-            >
-              <ChevronRight />
-            </button>
-          </div>
-        </div>
+        </Box>
+        <Box display={'flex'} alignItems={'center'} my={2} gap={1}>
+          <input
+            type="text"
+            placeholder="Enter MongoDB query"
+            value={engagementInput}
+            onChange={(e) => setEngagementInput(e.target.value)}
+          />
+          <Button Icon={SearchIcon} callback={handleEngagementSearch} />
+        </Box>
+        <EngagementTable
+          engagementData={engagementData}
+          currentEngagementPage={currentEngagementPage}
+          setCurrentEngagementPage={setCurrentEngagementPage}
+        />
       </Section>
     </ListSectionStyled>
   );

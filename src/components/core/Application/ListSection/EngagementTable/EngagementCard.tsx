@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import { Box, Grid, Modal, Typography } from '@mui/material';
 
-import type { EngagementEvent } from '../../../../fetching/types';
+import type { EngagementEvent } from '../../../../../fetching/types';
 
-import { styleVariables } from '../../../../../public/styles/utils/styleVariables';
-import { DeleteIcon } from '../../../common/Icons/DeleteIcon';
+import { styleVariables } from '../../../../../../public/styles/utils/styleVariables';
+import { DeleteIcon } from '../../../../common/Icons/DeleteIcon';
 
 type EngagementCardParams = {
   event: EngagementEvent;
