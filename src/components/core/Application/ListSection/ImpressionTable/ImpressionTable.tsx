@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Grid } from '@mui/material';
+import { Grid, useMediaQuery } from '@mui/material';
 
 import type { ImpressionEvent } from '../../../../../fetching/types';
 
@@ -20,6 +20,8 @@ const ImpressionTable: React.FC<ImpressionTableParams> = ({
   currentImpressionPage,
   setCurrentImpressionPage,
 }) => {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+
   const previousImpressionButtonDisabled = currentImpressionPage === 1;
   const nextImpressionButtonDisabled = impressionData.length === 0;
 
@@ -42,21 +44,27 @@ const ImpressionTable: React.FC<ImpressionTableParams> = ({
     <div className="events">
       {impressionEventsComponent.length !== 0 ? (
         <Grid container className="headers" margin="0 0 20px 0 !important">
-          <Grid item xs={4}>
+          <Grid item xs={8} md={4}>
             <p className="header">Target Id</p>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={4} md={1}>
             <p className="header">Action</p>
           </Grid>
-          <Grid item xs={2}>
-            <p className="header">Actor</p>
-          </Grid>
-          <Grid item xs={2}>
-            <p className="header">Navigation</p>
-          </Grid>
-          <Grid item xs={3}>
-            <p className="header last">Date</p>
-          </Grid>
+          {!isMobile && (
+            <Grid item xs={2}>
+              <p className="header">Actor</p>
+            </Grid>
+          )}
+          {!isMobile && (
+            <Grid item xs={2}>
+              <p className="header">Navigation</p>
+            </Grid>
+          )}
+          {!isMobile && (
+            <Grid item xs={3}>
+              <p className="header last">Date</p>
+            </Grid>
+          )}
           {impressionEventsComponent}
         </Grid>
       ) : (

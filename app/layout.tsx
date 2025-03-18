@@ -1,12 +1,25 @@
 'use client';
 
 import React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 import { StyledComponentsRegistry } from './registry';
 import { Reset } from '../public/styles/Reset.styles';
 import { Globals } from '../public/styles/Globals.styles';
 import { Footer } from '../src/components/core/Footer/Footer';
 import { Navbar } from '../src/components/core/Navbar/Navbar';
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+});
 
 export default function RootLayout({
   children,
@@ -31,13 +44,15 @@ export default function RootLayout({
       </head>
       <html lang="en">
         <StyledComponentsRegistry>
-          <Reset />
-          <Globals />
-          <body>
-            <Navbar />
-            {children}
-            <Footer />
-          </body>
+          <ThemeProvider theme={theme}>
+            <Reset />
+            <Globals />
+            <body>
+              <Navbar />
+              {children}
+              <Footer />
+            </body>
+          </ThemeProvider>
         </StyledComponentsRegistry>
       </html>
     </>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Box, Grid, Modal, Typography } from '@mui/material';
+import { Box, Grid, Modal, Typography, useMediaQuery } from '@mui/material';
 
 import type { ImpressionEvent } from '../../../../../fetching/types';
 
@@ -13,6 +13,8 @@ type ImpressionCardParams = {
 };
 
 const ImpressionCard: React.FC<ImpressionCardParams> = ({ event }) => {
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -117,21 +119,27 @@ const ImpressionCard: React.FC<ImpressionCardParams> = ({ event }) => {
         onClick={handleOpenModal}
         style={{ cursor: 'pointer' }}
       >
-        <Grid item xs={4} className="id-info">
+        <Grid item xs={8} md={4} className="id-info">
           {target.id}
         </Grid>
-        <Grid item xs={1} className="id-info">
+        <Grid item xs={4} md={1} className="id-info">
           {action}
         </Grid>
-        <Grid item xs={2} className="id-info">
-          {actor}
-        </Grid>
-        <Grid item xs={2} className="id-info">
-          {navigationType}
-        </Grid>
-        <Grid item xs={3} className="id-info">
-          {date}
-        </Grid>
+        {!isMobile && (
+          <Grid item xs={2} className="id-info">
+            {actor}
+          </Grid>
+        )}
+        {!isMobile && (
+          <Grid item xs={2} className="id-info">
+            {navigationType}
+          </Grid>
+        )}
+        {!isMobile && (
+          <Grid item xs={3} className="id-info">
+            {date}
+          </Grid>
+        )}
       </Grid>
       <Modal
         open={isModalOpen}
@@ -145,7 +153,7 @@ const ImpressionCard: React.FC<ImpressionCardParams> = ({ event }) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 500,
+            width: isMobile ? 350 : 500,
             bgcolor: styleVariables.colors.abyssBlue,
             p: 4,
             borderRadius: 4,
@@ -179,7 +187,6 @@ const ImpressionCard: React.FC<ImpressionCardParams> = ({ event }) => {
               <DeleteIcon width={25} height={25} />
             </Box>
           </Box>
-
           <Typography variant="body1">
             <strong style={{ color: styleVariables.colors.pictonBlue }}>
               id:
