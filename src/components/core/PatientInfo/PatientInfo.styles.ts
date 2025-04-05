@@ -7,8 +7,16 @@ const PatientInfoStyles = styled.div`
   flex-direction: column;
   width: 100%;
 
+  section {
+    margin: 0 !important;
+  }
+
   h2 {
     margin-bottom: 2rem !important;
+  }
+
+  .section-wrapper {
+    margin: 2rem 1.5rem !important;
   }
 
   .info-box {
@@ -16,7 +24,7 @@ const PatientInfoStyles = styled.div`
   }
 
   .story-box {
-    margin: 2rem 0 !important;
+    margin: 0.5rem 0 2rem !important;
   }
 
   .list-box {
