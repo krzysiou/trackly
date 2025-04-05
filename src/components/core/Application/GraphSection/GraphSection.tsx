@@ -378,6 +378,7 @@ const GraphSection: React.FC<ApplicationsParams> = ({
                   setImpressionTimeline(e.target.value as Timeline)
                 }
                 MenuProps={{
+                  disableScrollLock: true,
                   PaperProps: {
                     style: {
                       backgroundColor: '#0F172A',
@@ -484,6 +485,7 @@ const GraphSection: React.FC<ApplicationsParams> = ({
                   setEngagementTimeline(e.target.value as Timeline)
                 }
                 MenuProps={{
+                  disableScrollLock: true,
                   PaperProps: {
                     style: {
                       backgroundColor: '#0F172A',
