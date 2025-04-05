@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
+import { usePathname } from 'next/navigation';
 
 import { StyledComponentsRegistry } from './registry';
 import { Reset } from '../public/styles/Reset.styles';
@@ -26,6 +27,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isPatientRoute = pathname.split('/')[1] === 'patient';
+
   return (
     <>
       <head>
@@ -48,9 +52,9 @@ export default function RootLayout({
             <Reset />
             <Globals />
             <body>
-              <Navbar />
+              {!isPatientRoute && <Navbar />}
               {children}
-              <Footer />
+              {!isPatientRoute && <Footer />}
             </body>
           </ThemeProvider>
         </StyledComponentsRegistry>
