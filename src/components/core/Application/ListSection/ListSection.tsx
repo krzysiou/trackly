@@ -94,8 +94,13 @@ const ListSection: React.FC<ApplicationsParams> = ({
 
   const handleEngagementSearch = () => {
     try {
+      if (!engagementInput) {
+        setEngagementFilter({});
+
+        return;
+      }
+
       const parsedInput = JSON.parse(engagementInput);
-      console.log(parsedInput);
       if (typeof parsedInput === 'object' && !Array.isArray(parsedInput)) {
         setEngagementFilter(parsedInput);
       } else {
@@ -112,6 +117,12 @@ const ListSection: React.FC<ApplicationsParams> = ({
 
   const handleImpressionSearch = () => {
     try {
+      if (!impressionInput) {
+        setImpressionFilter({});
+
+        return;
+      }
+
       const parsedInput = JSON.parse(impressionInput);
 
       if (typeof parsedInput === 'object' && !Array.isArray(parsedInput)) {

@@ -57,10 +57,6 @@ const ListSectionStyled = styled.div`
   .button {
     height: 4rem;
     width: 4rem;
-
-    img {
-      fill: green;
-    }
   }
 
   input {
@@ -72,6 +68,10 @@ const ListSectionStyled = styled.div`
     color: ${styleVariables.colors.white};
     border: 1px solid ${styleVariables.colors.charcoal};
     background-color: ${styleVariables.colors.oxfordBlue};
+    font-family: 'Roboto Mono', monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 
     &::placeholder {
       color: ${styleVariables.colors.charcoal};
