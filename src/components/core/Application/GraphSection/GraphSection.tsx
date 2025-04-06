@@ -457,11 +457,7 @@ const GraphSection: React.FC<ApplicationsParams> = ({
               </Select>
             </FormControl>
           </div>
-          <div
-            className="chart-container"
-            data-target-name="Impression Chart"
-            data-target-page-type="Graph Section"
-          >
+          <div className="chart-container">
             <Line data={impressionChartData} options={impressionChartOptions} />
           </div>
         </div>
@@ -592,11 +588,7 @@ const GraphSection: React.FC<ApplicationsParams> = ({
               </Select>
             </FormControl>
           </div>
-          <div
-            className="chart-container"
-            data-target-name="Engagement Chart"
-            data-target-page-type="Graph Section"
-          >
+          <div className="chart-container">
             <Line data={engagementChartData} options={engagementChartOptions} />
           </div>
         </div>
