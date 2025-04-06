@@ -73,8 +73,16 @@ const Applications: React.FC<ApplicationsParams> = ({
     <ApplicationsStyled>
       <Background />
       <Section name="applications" SectionImage={ApplicationsIcon} align="left">
-        <h2>Applications</h2>
-        <p>
+        <h2
+          data-target-name="Applications Header"
+          data-target-page-type="Applications"
+        >
+          Applications
+        </h2>
+        <p
+          data-target-name="Applications Description"
+          data-target-page-type="Applications"
+        >
           When a <span>developer</span> creates a new website, they will need to
           set up a new <span>application</span> within our platform. During this
           process, a unique <span>application ID</span> will be generated. This
@@ -106,7 +114,13 @@ const Applications: React.FC<ApplicationsParams> = ({
         </div>
         <p className="error">{error}</p>
       </Section>
-      <div className="applications">{applicationsComponent}</div>
+      <div
+        className="applications"
+        data-target-name="Applications List"
+        data-target-page-type="Applications"
+      >
+        {applicationsComponent}
+      </div>
     </ApplicationsStyled>
   );
 };

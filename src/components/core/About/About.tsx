@@ -25,8 +25,10 @@ const About: React.FC<AboutProps> = ({ userId }) => {
     <AboutStyled>
       <Background />
       <Section name="gh" SectionImage={GithubIcon} align="left">
-        <h2>GitHub</h2>
-        <p>
+        <h2 data-target-name="GitHub Header" data-target-page-type="About">
+          GitHub
+        </h2>
+        <p data-target-name="GitHub Description" data-target-page-type="About">
           Explore more of our innovative projects on our <span>GitHub</span>. By
           visiting our GitHub profile, you can access a variety of{' '}
           <span>tools</span> and <span>applications</span> designed to enhance
@@ -36,8 +38,13 @@ const About: React.FC<AboutProps> = ({ userId }) => {
         </p>
       </Section>
       <Section name="linkedin" SectionImage={LinkedInIcon} align="left">
-        <h2>LinkedIn</h2>
-        <p>
+        <h2 data-target-name="LinkedIn Header" data-target-page-type="About">
+          LinkedIn
+        </h2>
+        <p
+          data-target-name="LinkedIn Description"
+          data-target-page-type="About"
+        >
           Connect with us on <span>LinkedIn</span> to stay informed about our
           latest developments, industry insights, and <span>professional</span>{' '}
           updates. Follow our page for news on product releases, company

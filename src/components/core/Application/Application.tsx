@@ -59,10 +59,18 @@ const Application: React.FC<ApplicationsParams> = ({
     <ApplicationStyled>
       <Background />
       <Section name="application" SectionImage={ApplicationIcon} align="left">
-        <h2>{applicationData.name}</h2>
+        <h2
+          data-target-name="Application Header"
+          data-target-page-type="Application"
+        >
+          {applicationData.name}
+        </h2>
         <h3 className="app-id">{applicationData.id}</h3>
         <h3 className="app-date">Created: {applicationData.date}</h3>
-        <p>
+        <p
+          data-target-name="Application Description"
+          data-target-page-type="Application"
+        >
           You&apos;re viewing <span>detailed insights</span> for your selected
           application. Below, you&apos;ll find interactive graphs displaying{' '}
           <span>impressions</span> and <span>engagement</span> events, giving

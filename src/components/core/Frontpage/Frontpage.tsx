@@ -28,10 +28,13 @@ const Frontpage: React.FC<FrontpageProps> = ({ userId }) => {
     <FrontpageStyled>
       <Background />
       <Section name="hero" align="left">
-        <h1>
+        <h1 data-target-name="Hero Header" data-target-page-type="Frontpage">
           Unlock the power of data with our cutting-edge analytics platform.
         </h1>
-        <p>
+        <p
+          data-target-name="Hero Description"
+          data-target-page-type="Frontpage"
+        >
           Gain deep <span>insights</span> into user behavior on your website
           with our advanced <span>analytics</span> solution. Optimize your user
           experience, drive conversions, and{' '}
@@ -43,8 +46,16 @@ const Frontpage: React.FC<FrontpageProps> = ({ userId }) => {
         </div>
       </Section>
       <Section name="about" SectionImage={InfoIcon} align="left">
-        <h2>About us</h2>
-        <p>
+        <h2
+          data-target-name="About Us Header"
+          data-target-page-type="Frontpage"
+        >
+          About us
+        </h2>
+        <p
+          data-target-name="About Us Description"
+          data-target-page-type="Frontpage"
+        >
           We are dedicated to <span>transforming</span> data into actionable{' '}
           <span>insights</span>. Our advanced analytics platform provides
           comprehensive user behavior tracking, enabling businesses to optimize
@@ -57,8 +68,16 @@ const Frontpage: React.FC<FrontpageProps> = ({ userId }) => {
         </p>
       </Section>
       <Section name="features" SectionImage={QuestionIcon} align="left">
-        <h2>Why choose our analytics platform?</h2>
-        <p>
+        <h2
+          data-target-name="Features Header"
+          data-target-page-type="Frontpage"
+        >
+          Why choose our analytics platform?
+        </h2>
+        <p
+          data-target-name="Features Description"
+          data-target-page-type="Frontpage"
+        >
           Our platform provides detailed insights into user interactions,
           enabling you to understand their journey and behavior on your website.
           Track <span>clicks</span>, and <span>navigation paths</span> to
@@ -76,7 +95,12 @@ const Frontpage: React.FC<FrontpageProps> = ({ userId }) => {
         />
       </Section>
       <Section name="documentation" SectionImage={WrenchIcon} align="left">
-        <h2>Simple and readable documentation.</h2>
+        <h2
+          data-target-name="Documentation Header"
+          data-target-page-type="Frontpage"
+        >
+          Simple and readable documentation.
+        </h2>
         <p
           data-target-name="Documentation Description"
           data-target-page-type="Frontpage"

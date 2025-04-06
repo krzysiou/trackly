@@ -31,8 +31,13 @@ const Gallery: React.FC<GalleryProps> = ({ userId }) => {
     <GalleryStyled>
       <Background />
       <Section name="gallery" SectionImage={ImageIcon} align="left">
-        <h2>Gallery</h2>
-        <p>
+        <h2 data-target-name="Gallery Header" data-target-page-type="Gallery">
+          Gallery
+        </h2>
+        <p
+          data-target-name="Gallery Description"
+          data-target-page-type="Gallery"
+        >
           Get a glimpse of our <span>user-friendly</span> interface with our
           detailed screenshots. Our platform&apos;s <span>intuitive UI</span> is
           designed to provide a seamless experience, featuring customizable{' '}
@@ -43,7 +48,11 @@ const Gallery: React.FC<GalleryProps> = ({ userId }) => {
           performance.
         </p>
       </Section>
-      <div className="images">
+      <div
+        className="images"
+        data-target-name="Gallery Images"
+        data-target-page-type="Gallery"
+      >
         <Image src={oneImage} alt="one image" />
         <Image src={twoImage} alt="two image" />
         <Image src={threeImage} alt="three image" />
@@ -52,8 +61,13 @@ const Gallery: React.FC<GalleryProps> = ({ userId }) => {
         <Image src={sixImage} alt="six image" />
       </div>
       <Section name="more" align="left">
-        <h2>... and more!</h2>
-        <p>
+        <h2 data-target-name="And More Header" data-target-page-type="Gallery">
+          ... and more!
+        </h2>
+        <p
+          data-target-name="And More Description"
+          data-target-page-type="Gallery"
+        >
           While the <span>screenshots</span> provide a sneak peek into our
           platform&apos;s capabilities, there&apos;s so much more to discover.
           Dive deeper into the full range of <span>features</span>, advanced

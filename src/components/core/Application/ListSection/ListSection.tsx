@@ -231,6 +231,8 @@ const ListSection: React.FC<ApplicationsParams> = ({
           )}
         </Box>
         <ImpressionTable
+          data-target-name="Impression Table"
+          data-target-page-type="List Section"
           userId={userId}
           impressionData={impressionData}
           currentImpressionPage={currentImpressionPage}
@@ -303,6 +305,8 @@ const ListSection: React.FC<ApplicationsParams> = ({
           )}
         </Box>
         <EngagementTable
+          data-target-name="Engagement Table"
+          data-target-page-type="List Section"
           userId={userId}
           engagementData={engagementData}
           currentEngagementPage={currentEngagementPage}
