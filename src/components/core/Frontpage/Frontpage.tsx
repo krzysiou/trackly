@@ -77,7 +77,10 @@ const Frontpage: React.FC<FrontpageProps> = ({ userId }) => {
       </Section>
       <Section name="documentation" SectionImage={WrenchIcon} align="left">
         <h2>Simple and readable documentation.</h2>
-        <p>
+        <p
+          data-target-name="Documentation Description"
+          data-target-page-type="Frontpage"
+        >
           Our <span>documentation</span> is designed with simplicity and
           readability in mind, ensuring that developers can{' '}
           <span>integrate</span> our analytics platform effortlessly. With

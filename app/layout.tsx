@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { usePathname } from 'next/navigation';
 
@@ -9,6 +9,8 @@ import { Reset } from '../public/styles/Reset.styles';
 import { Globals } from '../public/styles/Globals.styles';
 import { Footer } from '../src/components/core/Footer/Footer';
 import { Navbar } from '../src/components/core/Navbar/Navbar';
+import { useAuthorization } from '../src/components/hooks/AuthorizationHook';
+import { tracker } from '../src/tracker';
 
 const theme = createTheme({
   breakpoints: {
@@ -29,6 +31,18 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
   const isPatientRoute = pathname.split('/')[1] === 'patient';
+
+  const { session } = useAuthorization();
+
+  useEffect(() => {
+    tracker.registerViewElementTracking({
+      actor: session?.userId || 'unknown',
+    });
+
+    return () => {
+      tracker.unregisterViewElementTracking();
+    };
+  }, [session]);
 
   return (
     <>

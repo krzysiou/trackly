@@ -13,6 +13,7 @@ import { composeClickElementEvent } from './events/engagement/track-click-elemen
 
 class TracklyTracker {
   private sendRequest: SendRequest;
+  private observer: IntersectionObserver | null = null;
 
   constructor(appId: string, url: string) {
     this.sendRequest = sendRequestProvider(url, appId);
@@ -22,14 +23,6 @@ class TracklyTracker {
     const eventDataOutput = composeViewPageEvent(eventDataInput);
 
     this.sendRequest(Endpoint.ImpressionPage, eventDataOutput);
-  };
-
-  public trackViewElement = (
-    eventDataInput: TrackViewElementEventDataInput
-  ) => {
-    const eventDataOutput = composeViewElementEvent(eventDataInput);
-
-    this.sendRequest(Endpoint.ImpressionElement, eventDataOutput);
   };
 
   public trackClickElement = (
@@ -44,6 +37,49 @@ class TracklyTracker {
     const eventDataOutput = composeSubmitFormEvent(eventDataInput);
 
     this.sendRequest(Endpoint.EngagementSubmit, eventDataOutput);
+  };
+
+  public registerViewElementTracking = ({ actor }: { actor: string }) => {
+    if (this.observer) {
+      this.unregisterViewElementTracking();
+    }
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const targetElement = entry.target as HTMLElement;
+          const targetName = targetElement.getAttribute('data-target-name');
+          const targetPageType = targetElement.getAttribute(
+            'data-target-page-type'
+          );
+
+          if (targetName && targetPageType) {
+            const eventDataInput: TrackViewElementEventDataInput = {
+              actor,
+              targetName,
+              targetPageType,
+            };
+
+            const eventDataOutput = composeViewElementEvent(eventDataInput);
+
+            console.log('TRACKED', eventDataOutput);
+            //this.sendRequest(Endpoint.ImpressionElement, eventDataOutput);
+          }
+        }
+      });
+    });
+
+    const elements = document.querySelectorAll(
+      '[data-target-name][data-target-page-type]'
+    );
+    elements.forEach((element) => this.observer?.observe(element));
+  };
+
+  public unregisterViewElementTracking = () => {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
   };
 }
 
