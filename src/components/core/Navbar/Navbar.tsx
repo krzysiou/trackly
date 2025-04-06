@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
       onClick={() => {
         tracker.trackClickElement({
           actor: session?.userId || 'unknown',
-          targetName: 'Hamburger Menu',
+          targetName: 'Navigation Menu',
           targetPageType: 'Navbar',
         });
         handleOpen();
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
       onClick={() => {
         tracker.trackClickElement({
           actor: session?.userId || 'unknown',
-          targetName: 'Applications Link',
+          targetName: 'Gallery Link',
           targetPageType: 'Navbar',
         });
         closeMenu();
