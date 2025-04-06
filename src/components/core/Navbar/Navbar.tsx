@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { NavbarStyled } from './Navbar.styles';
 import { Dropdown } from './Dropdown/Dropdown';
@@ -10,12 +8,12 @@ import { FullLogoIcon } from '../../common/Icons/FullLogoIcon';
 import { MenuIcon } from '../../common/Icons/MenuIcon';
 import { useAuthorization } from '../../hooks/AuthorizationHook';
 import { tracker } from '../../../tracker';
+import { navigate } from '../../hooks/NavigateHook';
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { session, signOut } = useAuthorization();
-  const router = useRouter();
 
   const handleOpen = () => setOpen(!open);
   const closeMenu = () => setOpen(false);
@@ -46,7 +44,7 @@ const Navbar: React.FC = () => {
           targetPageType: 'Navbar',
         });
         closeMenu();
-        router.push('/about');
+        navigate('/about');
       }}
     >
       About
@@ -63,7 +61,7 @@ const Navbar: React.FC = () => {
           targetPageType: 'Navbar',
         });
         closeMenu();
-        router.push('/gallery');
+        navigate('/gallery');
       }}
     >
       Gallery
@@ -80,7 +78,7 @@ const Navbar: React.FC = () => {
           targetPageType: 'Navbar',
         });
         closeMenu();
-        router.push('/applications');
+        navigate('/applications');
       }}
     >
       Applications
@@ -106,10 +104,9 @@ const Navbar: React.FC = () => {
 
   return (
     <NavbarStyled open={open}>
-      <Link href="/">
+      <a href="/">
         <FullLogoIcon />
-      </Link>
-
+      </a>
       <Dropdown
         open={open}
         trigger={dropdownTrigger}

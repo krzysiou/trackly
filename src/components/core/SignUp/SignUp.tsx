@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 
 import { SignInStyled } from './SignUp.styles';
 import { Section } from '../../common/Section/Section';
@@ -84,7 +83,7 @@ const SignUp: React.FC<SignUpProps> = ({ userId }) => {
         </div>
         <p className="info">
           Already signed up?{' '}
-          <Link
+          <a
             href="/signin"
             className="link"
             onClick={() =>
@@ -96,7 +95,7 @@ const SignUp: React.FC<SignUpProps> = ({ userId }) => {
             }
           >
             Sign in instead
-          </Link>
+          </a>
         </p>
         <Button
           label="Sign up"

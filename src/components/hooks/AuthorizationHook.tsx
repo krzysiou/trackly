@@ -1,10 +1,11 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { config } from '../../config/config';
 import { tracker } from '../../tracker';
+import { navigate } from './NavigateHook';
 
 const { apiUrl, sessionCookieName } = config;
 
@@ -14,7 +15,6 @@ const useAuthorization = () => {
     userId: string;
   } | null>(null);
 
-  const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -49,7 +49,7 @@ const useAuthorization = () => {
       await Cookies.set(sessionCookieName, JSON.stringify(data));
       setSession(data);
 
-      router.push('/applications');
+      navigate('/applications');
     } catch (error) {
       setError(error.response?.data?.message);
     }
@@ -75,7 +75,7 @@ const useAuthorization = () => {
       await Cookies.set(sessionCookieName, JSON.stringify(data));
       setSession(data);
 
-      router.push('/applications');
+      navigate('/applications');
     } catch (error) {
       setError(error.response?.data?.message);
     }
@@ -91,7 +91,7 @@ const useAuthorization = () => {
     await Cookies.remove(sessionCookieName);
     setSession(null);
 
-    router.push('/');
+    navigate('/');
   };
 
   return { session, signIn, signUp, signOut };

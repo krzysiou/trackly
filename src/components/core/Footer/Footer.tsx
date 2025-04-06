@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 
 import { GithubIcon } from '../../common/Icons/GithubIcon';
 import { LinkedInIcon } from '../../common/Icons/LinkedInIcon';
@@ -22,7 +21,7 @@ const Footer: React.FC = () => {
       <div className="info">
         <p>
           You can find me on{' '}
-          <Link
+          <a
             href={githubLink}
             onClick={() => {
               tracker.trackClickElement({
@@ -33,11 +32,11 @@ const Footer: React.FC = () => {
             }}
           >
             GitHub
-          </Link>
+          </a>
         </p>
       </div>
       <div className="logos">
-        <Link
+        <a
           href={githubLink}
           onClick={() => {
             tracker.trackClickElement({
@@ -48,8 +47,8 @@ const Footer: React.FC = () => {
           }}
         >
           <GithubIcon />
-        </Link>
-        <Link
+        </a>
+        <a
           href={linkedInLink}
           onClick={() => {
             tracker.trackClickElement({
@@ -60,7 +59,7 @@ const Footer: React.FC = () => {
           }}
         >
           <LinkedInIcon />
-        </Link>
+        </a>
       </div>
     </FooterStyled>
   );
