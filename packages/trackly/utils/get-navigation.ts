@@ -2,7 +2,7 @@ const getNavigation = (): string => {
   const [navigationEntry] = performance.getEntriesByType(
     'navigation'
   ) as PerformanceNavigationTiming[];
-
+  console.log('navigationEntry', navigationEntry);
   if (navigationEntry) {
     switch (navigationEntry.type) {
       case 'navigate':
