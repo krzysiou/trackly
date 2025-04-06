@@ -7,6 +7,8 @@ import type { Application } from '../../../../fetching/types';
 
 import { AppCardStyled } from './AppCard.styles';
 import { AppIcon } from '../../../common/Icons/AppIcon';
+import { useAuthorization } from '../../../hooks/AuthorizationHook';
+import { tracker } from '../../../../tracker';
 
 type ApplicationsParams = {
   application: Application;
@@ -17,8 +19,19 @@ const AppCard: React.FC<ApplicationsParams> = ({ application }) => {
 
   const router = useRouter();
 
+  const { session } = useAuthorization();
+
   return (
-    <AppCardStyled onClick={() => router.push(`/applications/${id}`)}>
+    <AppCardStyled
+      onClick={() => {
+        tracker.trackClickElement({
+          actor: session?.userId || 'unknown',
+          targetName: 'Application Button',
+          targetPageType: 'Applications',
+        });
+        router.push(`/applications/${id}`);
+      }}
+    >
       <AppIcon />
       <div className="info">
         <div className="card-header">

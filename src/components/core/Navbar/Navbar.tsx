@@ -9,6 +9,7 @@ import { Dropdown } from './Dropdown/Dropdown';
 import { FullLogoIcon } from '../../common/Icons/FullLogoIcon';
 import { MenuIcon } from '../../common/Icons/MenuIcon';
 import { useAuthorization } from '../../hooks/AuthorizationHook';
+import { tracker } from '../../../tracker';
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -20,7 +21,17 @@ const Navbar: React.FC = () => {
   const closeMenu = () => setOpen(false);
 
   const dropdownTrigger = (
-    <button onClick={handleOpen} className="menu-icon">
+    <button
+      onClick={() => {
+        tracker.trackClickElement({
+          actor: session?.userId || 'unknown',
+          targetName: 'Hamburger Menu',
+          targetPageType: 'Navbar',
+        });
+        handleOpen();
+      }}
+      className="menu-icon"
+    >
       <MenuIcon />
     </button>
   );
@@ -29,6 +40,11 @@ const Navbar: React.FC = () => {
     <button
       className="header-link"
       onClick={() => {
+        tracker.trackClickElement({
+          actor: session?.userId || 'unknown',
+          targetName: 'About Link',
+          targetPageType: 'Navbar',
+        });
         closeMenu();
         router.push('/about');
       }}
@@ -41,6 +57,11 @@ const Navbar: React.FC = () => {
     <button
       className="header-link"
       onClick={() => {
+        tracker.trackClickElement({
+          actor: session?.userId || 'unknown',
+          targetName: 'Applications Link',
+          targetPageType: 'Navbar',
+        });
         closeMenu();
         router.push('/gallery');
       }}
@@ -53,6 +74,11 @@ const Navbar: React.FC = () => {
     <button
       className="header-link"
       onClick={() => {
+        tracker.trackClickElement({
+          actor: session?.userId || 'unknown',
+          targetName: 'Applications Link',
+          targetPageType: 'Navbar',
+        });
         closeMenu();
         router.push('/applications');
       }}
@@ -65,6 +91,11 @@ const Navbar: React.FC = () => {
     <button
       className="header-link"
       onClick={() => {
+        tracker.trackClickElement({
+          actor: session?.userId || 'unknown',
+          targetName: 'Logout Link',
+          targetPageType: 'Navbar',
+        });
         signOut();
         closeMenu();
       }}

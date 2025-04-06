@@ -42,6 +42,11 @@ const Applications: React.FC<ApplicationsParams> = ({
   }, [userId]);
 
   const createApp = useCallback(() => {
+    tracker.trackClickElement({
+      actor: session?.userId || 'unknown',
+      targetName: 'Create App Button',
+      targetPageType: 'Applications',
+    });
     postFetch(
       `${apiUrl}/application/create`,
       { applicationName },

@@ -77,8 +77,28 @@ const Application: React.FC<ApplicationsParams> = ({
           <span>enhance</span> your application&apos;s impact.
         </p>
         <div className="view-mode-buttons">
-          <Button Icon={ListWhiteIcon} callback={() => setMode('list')} />
-          <Button Icon={GraphWhiteIcon} callback={() => setMode('graph')} />
+          <Button
+            Icon={ListWhiteIcon}
+            callback={() => {
+              tracker.trackClickElement({
+                actor: userId || 'unknown',
+                targetName: 'List Button',
+                targetPageType: 'Application',
+              });
+              setMode('list');
+            }}
+          />
+          <Button
+            Icon={GraphWhiteIcon}
+            callback={() => {
+              tracker.trackClickElement({
+                actor: userId || 'unknown',
+                targetName: 'Graph Button',
+                targetPageType: 'Application',
+              });
+              setMode('graph');
+            }}
+          />
         </div>
       </Section>
       {viewModeComponent}

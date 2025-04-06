@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { config } from '../../config/config';
+import { tracker } from '../../tracker';
 
 const { apiUrl, sessionCookieName } = config;
 
@@ -34,6 +35,12 @@ const useAuthorization = () => {
     password: string
   ) => {
     try {
+      tracker.trackSubmitForm({
+        actor: session?.userId || 'unknown',
+        targetName: 'Sign In Form',
+        targetPageType: 'Sign In',
+      });
+
       const { data } = await axios.post(`${apiUrl}/login`, {
         username,
         password,
@@ -54,6 +61,12 @@ const useAuthorization = () => {
     password: string
   ) => {
     try {
+      tracker.trackSubmitForm({
+        actor: session?.userId || 'unknown',
+        targetName: 'Sign Up Form',
+        targetPageType: 'Sign Up',
+      });
+
       const { data } = await axios.post(`${apiUrl}/register`, {
         username,
         password,
@@ -69,6 +82,12 @@ const useAuthorization = () => {
   };
 
   const signOut = async () => {
+    tracker.trackSubmitForm({
+      actor: session?.userId || 'unknown',
+      targetName: 'Sign Out Form',
+      targetPageType: 'Navbar',
+    });
+
     await Cookies.remove(sessionCookieName);
     setSession(null);
 

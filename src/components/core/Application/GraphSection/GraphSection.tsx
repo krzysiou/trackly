@@ -380,12 +380,29 @@ const GraphSection: React.FC<ApplicationsParams> = ({
               <button
                 type="button"
                 className="mobile-search"
-                onClick={handleImpressionSearch}
+                onClick={() => {
+                  tracker.trackClickElement({
+                    actor: userId || 'unknown',
+                    targetName: 'Impression Search Button',
+                    targetPageType: 'Graph Section',
+                  });
+                  handleImpressionSearch();
+                }}
               >
                 <SearchIcon width={20} height={20} />
               </button>
             ) : (
-              <Button Icon={SearchIcon} callback={handleImpressionSearch} />
+              <Button
+                Icon={SearchIcon}
+                callback={() => {
+                  tracker.trackClickElement({
+                    actor: userId || 'unknown',
+                    targetName: 'Impression Search Button',
+                    targetPageType: 'Graph Section',
+                  });
+                  handleImpressionSearch();
+                }}
+              />
             )}
           </Box>
           <div className="label">
@@ -394,6 +411,13 @@ const GraphSection: React.FC<ApplicationsParams> = ({
                 labelId="impression-timeline-label"
                 id="impression-timeline"
                 value={impressionTimeline}
+                onClick={() =>
+                  tracker.trackClickElement({
+                    actor: userId || 'unknown',
+                    targetName: 'Impression Timeline Menu',
+                    targetPageType: 'Graph Section',
+                  })
+                }
                 onChange={(e) =>
                   setImpressionTimeline(e.target.value as Timeline)
                 }
@@ -487,12 +511,29 @@ const GraphSection: React.FC<ApplicationsParams> = ({
               <button
                 type="button"
                 className="mobile-search"
-                onClick={handleEngagementSearch}
+                onClick={() => {
+                  tracker.trackClickElement({
+                    actor: userId || 'unknown',
+                    targetName: 'Engagement Search Button',
+                    targetPageType: 'Graph Section',
+                  });
+                  handleEngagementSearch();
+                }}
               >
                 <SearchIcon width={20} height={20} />
               </button>
             ) : (
-              <Button Icon={SearchIcon} callback={handleEngagementSearch} />
+              <Button
+                Icon={SearchIcon}
+                callback={() => {
+                  tracker.trackClickElement({
+                    actor: userId || 'unknown',
+                    targetName: 'Engagement Search Button',
+                    targetPageType: 'Graph Section',
+                  });
+                  handleEngagementSearch();
+                }}
+              />
             )}
           </Box>
           <div className="label">
@@ -501,6 +542,13 @@ const GraphSection: React.FC<ApplicationsParams> = ({
                 labelId="engagement-timeline-label"
                 id="engagement-timeline"
                 value={engagementTimeline}
+                onClick={() =>
+                  tracker.trackClickElement({
+                    actor: userId || 'unknown',
+                    targetName: 'Engagement Timeline Menu',
+                    targetPageType: 'Graph Section',
+                  })
+                }
                 onChange={(e) =>
                   setEngagementTimeline(e.target.value as Timeline)
                 }

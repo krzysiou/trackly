@@ -8,14 +8,17 @@ import type { ImpressionEvent } from '../../../../../fetching/types';
 import { ImpressionCard } from './ImpressionCard';
 import { ChevronLeft } from '../../../../common/Icons/ChevronLeft';
 import { ChevronRight } from '../../../../common/Icons/ChevronRight';
+import { tracker } from '../../../../../tracker';
 
 type ImpressionTableParams = {
+  userId?: string;
   impressionData: ImpressionEvent[];
   currentImpressionPage: number;
   setCurrentImpressionPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const ImpressionTable: React.FC<ImpressionTableParams> = ({
+  userId,
   impressionData,
   currentImpressionPage,
   setCurrentImpressionPage,
@@ -72,14 +75,28 @@ const ImpressionTable: React.FC<ImpressionTableParams> = ({
       )}
       <div className="pagination-controls">
         <button
-          onClick={handlePreviousImpressionPage}
+          onClick={() => {
+            tracker.trackClickElement({
+              actor: userId || 'unknown',
+              targetName: 'Impression Previous Button',
+              targetPageType: 'List Section',
+            });
+            handlePreviousImpressionPage();
+          }}
           disabled={previousImpressionButtonDisabled}
         >
           <ChevronLeft />
         </button>
         <span>Page {currentImpressionPage}</span>
         <button
-          onClick={handleNextImpressionPage}
+          onClick={() => {
+            tracker.trackClickElement({
+              actor: userId || 'unknown',
+              targetName: 'Impression Next Button',
+              targetPageType: 'List Section',
+            });
+            handleNextImpressionPage();
+          }}
           disabled={nextImpressionButtonDisabled}
         >
           <ChevronRight />

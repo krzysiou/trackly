@@ -3,6 +3,8 @@
 import React from 'react';
 
 import { ButtonStyled } from './Button.styles';
+import { tracker } from '../../../tracker';
+import { useAuthorization } from '../../hooks/AuthorizationHook';
 
 type ListParams = {
   Icon?: React.FC;
@@ -12,9 +14,22 @@ type ListParams = {
 };
 
 const Button: React.FC<ListParams> = ({ Icon, label, url, callback }) => {
+  const { session } = useAuthorization();
+
   const linkButtonComponent = url && (
     <a href={url}>
-      <button className="button">{label || <Icon />}</button>
+      <button
+        className="button"
+        onClick={() =>
+          tracker.trackClickElement({
+            actor: session?.userId || 'unknown',
+            targetName: label === 'Sign up' ? 'Sign Up Link' : 'Sign In Link',
+            targetPageType: 'Frontpage',
+          })
+        }
+      >
+        {label || <Icon />}
+      </button>
     </a>
   );
 

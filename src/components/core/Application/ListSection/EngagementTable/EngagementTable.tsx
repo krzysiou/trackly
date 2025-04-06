@@ -8,14 +8,17 @@ import type { EngagementEvent } from '../../../../../fetching/types';
 import { ChevronLeft } from '../../../../common/Icons/ChevronLeft';
 import { ChevronRight } from '../../../../common/Icons/ChevronRight';
 import { EngagementCard } from './EngagementCard';
+import { tracker } from '../../../../../tracker';
 
 type EngagementTableParams = {
+  userId?: string;
   engagementData: EngagementEvent[];
   currentEngagementPage: number;
   setCurrentEngagementPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const EngagementTable: React.FC<EngagementTableParams> = ({
+  userId,
   engagementData,
   currentEngagementPage,
   setCurrentEngagementPage,
@@ -72,14 +75,28 @@ const EngagementTable: React.FC<EngagementTableParams> = ({
       )}
       <div className="pagination-controls">
         <button
-          onClick={handlePreviousEngagementPage}
+          onClick={() => {
+            tracker.trackClickElement({
+              actor: userId || 'unknown',
+              targetName: 'Engagement Previous Button',
+              targetPageType: 'List Section',
+            });
+            handlePreviousEngagementPage();
+          }}
           disabled={previousEngagementButtonDisabled}
         >
           <ChevronLeft />
         </button>
         <span>Page {currentEngagementPage}</span>
         <button
-          onClick={handleNextEngagementPage}
+          onClick={() => {
+            tracker.trackClickElement({
+              actor: userId || 'unknown',
+              targetName: 'Engagement Next Button',
+              targetPageType: 'List Section',
+            });
+            handleNextEngagementPage();
+          }}
           disabled={nextEngagementButtonDisabled}
         >
           <ChevronRight />

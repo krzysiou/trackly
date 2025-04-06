@@ -21,7 +21,7 @@ const SignUp: React.FC<SignUpProps> = ({ userId }) => {
   const [password, setPassword] = useState<string>();
   const [error, setError] = useState<string>();
 
-  const { signUp } = useAuthorization();
+  const { session, signUp } = useAuthorization();
 
   useEffect(() => {
     tracker.trackViewPage({
@@ -84,13 +84,30 @@ const SignUp: React.FC<SignUpProps> = ({ userId }) => {
         </div>
         <p className="info">
           Already signed up?{' '}
-          <Link href="/signin" className="link">
+          <Link
+            href="/signin"
+            className="link"
+            onClick={() =>
+              tracker.trackClickElement({
+                actor: session?.userId || 'unknown',
+                targetName: 'Sign In Instead Link',
+                targetPageType: 'Sign Up',
+              })
+            }
+          >
             Sign in instead
           </Link>
         </p>
         <Button
           label="Sign up"
-          callback={() => signUp(setError, username, password)}
+          callback={() => {
+            tracker.trackClickElement({
+              actor: session?.userId || 'unknown',
+              targetName: 'Sign Up Button',
+              targetPageType: 'Sign Up',
+            });
+            signUp(setError, username, password);
+          }}
         />
       </Section>
     </SignInStyled>
