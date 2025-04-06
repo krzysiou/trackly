@@ -33,7 +33,7 @@ const Applications: React.FC<ApplicationsParams> = ({ applications }) => {
     postFetch(
       `${apiUrl}/application/create`,
       { applicationName },
-      session,
+      session.accessToken,
       setError
     ).then(() => router.refresh());
     setApplicationName('');

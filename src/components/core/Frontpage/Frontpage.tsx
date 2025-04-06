@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { List } from '../../common/List/List';
 import { Section } from '../../common/Section/Section';
@@ -10,8 +10,20 @@ import { WrenchIcon } from '../../common/Icons/WrenchIcon';
 import { Background } from '../../common/Background/Background';
 import { FrontpageStyled } from './Frontpage.styles';
 import { InfoIcon } from '../../common/Icons/InfoIcon';
+import { tracker } from '../../../tracker';
 
-const Frontpage: React.FC = () => {
+type FrontpageProps = {
+  userId?: string;
+};
+
+const Frontpage: React.FC<FrontpageProps> = ({ userId }) => {
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'Frontpage',
+    });
+  }, [userId]);
+
   return (
     <FrontpageStyled>
       <Background />

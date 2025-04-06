@@ -11,7 +11,9 @@ const { sessionCookieName } = config;
 
 export default async function Page({ params }: { params: { id: string } }) {
   const cookieStore = cookies();
-  const accessToken = cookieStore.get(sessionCookieName).value;
+  const accessToken = JSON.parse(
+    cookieStore.get(sessionCookieName).value || 'null'
+  )?.accessToken;
 
   const applicationData = await getApplication(params.id);
   const engagementData = await getEngagement(params.id, {}, accessToken);

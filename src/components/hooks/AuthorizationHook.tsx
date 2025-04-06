@@ -8,13 +8,16 @@ import { config } from '../../config/config';
 const { apiUrl, sessionCookieName } = config;
 
 const useAuthorization = () => {
-  const [session, setSession] = useState<string>();
+  const [session, setSession] = useState<{
+    accessToken: string;
+    userId: string;
+  } | null>(null);
 
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    const session = Cookies.get(sessionCookieName);
+    const session = JSON.parse(Cookies.get(sessionCookieName) || 'null');
 
     if (session) {
       setSession(session);
@@ -36,8 +39,8 @@ const useAuthorization = () => {
         password,
       });
 
-      await Cookies.set(sessionCookieName, data?.accessToken);
-      setSession(data?.accessToken);
+      await Cookies.set(sessionCookieName, JSON.stringify(data));
+      setSession(data);
 
       router.push('/applications');
     } catch (error) {
@@ -56,8 +59,8 @@ const useAuthorization = () => {
         password,
       });
 
-      await Cookies.set(sessionCookieName, data?.accessToken);
-      setSession(data?.accessToken);
+      await Cookies.set(sessionCookieName, JSON.stringify(data));
+      setSession(data);
 
       router.push('/applications');
     } catch (error) {

@@ -9,7 +9,9 @@ const { sessionCookieName, apiUrl } = config;
 
 const getApplication = async (applicationId: string): Promise<Application> => {
   const cookieStore = cookies();
-  const accessToken = cookieStore.get(sessionCookieName).value;
+  const accessToken = JSON.parse(
+    cookieStore.get(sessionCookieName)?.value || 'null'
+  )?.accessToken;
 
   return await getFetch<Application>(
     `${apiUrl}/application/get/${applicationId}`,

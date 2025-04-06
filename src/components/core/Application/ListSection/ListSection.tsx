@@ -62,7 +62,9 @@ const ListSection: React.FC<ApplicationsParams> = ({
 
   const getEngagementData = useCallback(
     async (page: number) => {
-      const accessToken = getCookie(sessionCookieName)?.toString();
+      const accessToken = JSON.parse(
+        getCookie(sessionCookieName)?.toString()
+      ).accessToken;
       const fetchedEngagementData = await getEngagement(
         appId,
         engagementFilter || {},
@@ -78,7 +80,9 @@ const ListSection: React.FC<ApplicationsParams> = ({
 
   const getImpressionData = useCallback(
     async (page: number) => {
-      const accessToken = getCookie(sessionCookieName)?.toString();
+      const accessToken = JSON.parse(
+        getCookie(sessionCookieName)?.toString()
+      ).accessToken;
       const fetchedImpressionData = await getImpression(
         appId,
         impressionFilter || {},

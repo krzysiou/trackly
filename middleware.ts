@@ -14,7 +14,9 @@ export const config = {
 
 const middleware = (request: NextRequest) => {
   const isValidationPath = validationPaths.includes(request.nextUrl.pathname);
-  const sessionCookie = request.cookies.get(sessionCookieName)?.value;
+  const sessionCookie = JSON.parse(
+    request.cookies.get(sessionCookieName)?.value || 'null'
+  )?.accessToken;
 
   const signinURL = new URL('/signin', request.url);
   const applicationsUrl = new URL('/applications', request.url);

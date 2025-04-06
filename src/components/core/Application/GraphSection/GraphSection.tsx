@@ -180,7 +180,9 @@ const GraphSection: React.FC<ApplicationsParams> = ({
   );
 
   useEffect(() => {
-    const accessToken = getCookie(sessionCookieName)?.toString();
+    const accessToken = JSON.parse(
+      getCookie(sessionCookieName)?.toString()
+    ).accessToken;
 
     const fetchData = async () => {
       const fetchedEngagementData = await getEngagement(
@@ -208,7 +210,9 @@ const GraphSection: React.FC<ApplicationsParams> = ({
   const handleEngagementSearch = async () => {
     try {
       if (!engagementInput) {
-        const accessToken = getCookie(sessionCookieName)?.toString();
+        const accessToken = JSON.parse(
+          getCookie(sessionCookieName)?.toString()
+        ).accessToken;
         const fetchedEngagementData = await getEngagement(
           appId,
           {},
@@ -222,7 +226,9 @@ const GraphSection: React.FC<ApplicationsParams> = ({
       }
       const parsedInput = JSON.parse(engagementInput);
       if (typeof parsedInput === 'object' && !Array.isArray(parsedInput)) {
-        const accessToken = getCookie(sessionCookieName)?.toString();
+        const accessToken = JSON.parse(
+          getCookie(sessionCookieName)?.toString()
+        ).accessToken;
         const fetchedEngagementData = await getEngagement(
           appId,
           parsedInput || {},
@@ -245,7 +251,9 @@ const GraphSection: React.FC<ApplicationsParams> = ({
   const handleImpressionSearch = async () => {
     try {
       if (!impressionInput) {
-        const accessToken = getCookie(sessionCookieName)?.toString();
+        const accessToken = JSON.parse(
+          getCookie(sessionCookieName)?.toString()
+        ).accessToken;
         const fetchedImpressionData = await getImpression(
           appId,
           {},
@@ -259,7 +267,9 @@ const GraphSection: React.FC<ApplicationsParams> = ({
       }
       const parsedInput = JSON.parse(impressionInput);
       if (typeof parsedInput === 'object' && !Array.isArray(parsedInput)) {
-        const accessToken = getCookie(sessionCookieName)?.toString();
+        const accessToken = JSON.parse(
+          getCookie(sessionCookieName)?.toString()
+        ).accessToken;
         const fetchedImpressionData = await getImpression(
           appId,
           parsedInput || {},
