@@ -44,10 +44,17 @@ class TracklyTracker {
       this.unregisterViewElementTracking();
     }
 
+    const trackedElements = new Set<HTMLElement>();
+
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const targetElement = entry.target as HTMLElement;
+
+          if (trackedElements.has(targetElement)) {
+            return;
+          }
+
           const targetName = targetElement.getAttribute('data-target-name');
           const targetPageType = targetElement.getAttribute(
             'data-target-page-type'
@@ -64,6 +71,8 @@ class TracklyTracker {
 
             console.log('TRACKED', eventDataOutput);
             //this.sendRequest(Endpoint.ImpressionElement, eventDataOutput);
+
+            trackedElements.add(targetElement);
           }
         }
       });

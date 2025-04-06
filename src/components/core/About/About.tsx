@@ -26,7 +26,7 @@ const About: React.FC<AboutProps> = ({ userId }) => {
       <Background />
       <Section name="gh" SectionImage={GithubIcon} align="left">
         <h2>GitHub</h2>
-        <p data-target-name="Github Description" data-target-page-type="About">
+        <p>
           Explore more of our innovative projects on our <span>GitHub</span>. By
           visiting our GitHub profile, you can access a variety of{' '}
           <span>tools</span> and <span>applications</span> designed to enhance
