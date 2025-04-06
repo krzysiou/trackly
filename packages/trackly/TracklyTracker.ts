@@ -69,8 +69,7 @@ class TracklyTracker {
 
             const eventDataOutput = composeViewElementEvent(eventDataInput);
 
-            console.log('TRACKED', eventDataOutput);
-            //this.sendRequest(Endpoint.ImpressionElement, eventDataOutput);
+            this.sendRequest(Endpoint.ImpressionElement, eventDataOutput);
 
             trackedElements.add(targetElement);
           }
