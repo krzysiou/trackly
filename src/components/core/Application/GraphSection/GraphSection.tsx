@@ -36,6 +36,7 @@ import { SearchIcon } from '../../../common/Icons/SearchIcon';
 import { config } from '../../../../config/config';
 import { getEngagement } from '../../../../fetching/get-engagement';
 import { getImpression } from '../../../../fetching/get-impression';
+import { tracker } from '../../../../tracker';
 
 ChartJS.register(
   CategoryScale,
@@ -148,12 +149,14 @@ const chartOptions = (maxValue: number) => ({
 const { sessionCookieName } = config;
 
 type ApplicationsParams = {
+  userId?: string;
   applicationData: ApplicationType;
   engagementData: EngagementEvent[];
   impressionData: ImpressionEvent[];
 };
 
 const GraphSection: React.FC<ApplicationsParams> = ({
+  userId,
   applicationData,
   engagementData: initialEngagementData,
   impressionData: initialImpressionData,
@@ -178,6 +181,13 @@ const GraphSection: React.FC<ApplicationsParams> = ({
   const [impressionData, setImpressionData] = useState<ImpressionEvent[]>(
     initialImpressionData
   );
+
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'Graph Section',
+    });
+  }, [userId]);
 
   useEffect(() => {
     const accessToken = JSON.parse(

@@ -14,6 +14,8 @@ export default async function Page({ params }: { params: { id: string } }) {
   const accessToken = JSON.parse(
     cookieStore.get(sessionCookieName).value || 'null'
   )?.accessToken;
+  const userId = JSON.parse(cookieStore.get(sessionCookieName).value || 'null')
+    ?.userId;
 
   const applicationData = await getApplication(params.id);
   const engagementData = await getEngagement(params.id, {}, accessToken);
@@ -21,6 +23,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <Application
+      userId={userId}
       applicationData={applicationData}
       engagementData={engagementData}
       impressionData={impressionData}

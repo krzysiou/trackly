@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import type { Application } from '../../../fetching/types';
@@ -15,19 +15,31 @@ import { useAuthorization } from '../../hooks/AuthorizationHook';
 import { config } from '../../../config/config';
 import { ApplicationsStyled } from './Applications.styles';
 import { AppCard } from './AppCard/AppCard';
+import { tracker } from '../../../tracker';
 
 const { apiUrl } = config;
 
 type ApplicationsParams = {
+  userId?: string;
   applications: Application[];
 };
 
-const Applications: React.FC<ApplicationsParams> = ({ applications }) => {
+const Applications: React.FC<ApplicationsParams> = ({
+  userId,
+  applications,
+}) => {
   const [applicationName, setApplicationName] = useState<string>();
   const [error, setError] = useState<string>();
 
   const router = useRouter();
   const { session } = useAuthorization();
+
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'Applications',
+    });
+  }, [userId]);
 
   const createApp = useCallback(() => {
     postFetch(

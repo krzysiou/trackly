@@ -1,14 +1,26 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Section } from '../../common/Section/Section';
 import { Background } from '../../common/Background/Background';
 import { AboutStyled } from './About.styles';
 import { GithubIcon } from '../../common/Icons/GithubIcon';
 import { LinkedInIcon } from '../../common/Icons/LinkedInIcon';
+import { tracker } from '../../../tracker';
 
-const About: React.FC = () => {
+type AboutProps = {
+  userId?: string;
+};
+
+const About: React.FC<AboutProps> = ({ userId }) => {
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'About',
+    });
+  }, [userId]);
+
   return (
     <AboutStyled>
       <Background />

@@ -1,13 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { NotFoundStyled } from './NotFound.styles';
 import { Section } from '../../common/Section/Section';
 import { Background } from '../../common/Background/Background';
 import { SadIcon } from '../../common/Icons/SadIcon';
+import { tracker } from '../../../tracker';
 
-const NotFound: React.FC = () => {
+type NotFoundProps = {
+  userId?: string;
+};
+
+const NotFound: React.FC<NotFoundProps> = ({ userId }) => {
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'Not Found',
+    });
+  }, [userId]);
+
   return (
     <NotFoundStyled>
       <Background />

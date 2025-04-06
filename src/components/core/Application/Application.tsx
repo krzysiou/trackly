@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import type {
   EngagementEvent,
@@ -17,31 +17,43 @@ import { ApplicationStyled } from './Application.styles';
 import { Button } from '../../common/Button/Button';
 import { ListWhiteIcon } from '../../common/Icons/ListWhiteIcon';
 import { GraphWhiteIcon } from '../../common/Icons/GraphWhiteIcon';
+import { tracker } from '../../../tracker';
 
 type ViewMode = 'list' | 'graph';
 
 type ApplicationsParams = {
+  userId?: string;
   applicationData: ApplicationType;
   engagementData: EngagementEvent[];
   impressionData: ImpressionEvent[];
 };
 
 const Application: React.FC<ApplicationsParams> = ({
+  userId,
   applicationData,
   engagementData,
   impressionData,
 }) => {
   const [mode, setMode] = useState<ViewMode>('list');
 
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'Application',
+    });
+  }, [userId]);
+
   const viewModeComponent =
     mode === 'list' ? (
       <ListSection
+        userId={userId}
         applicationData={applicationData}
         engagementData={engagementData}
         impressionData={impressionData}
       />
     ) : (
       <GraphSection
+        userId={userId}
         applicationData={applicationData}
         engagementData={engagementData}
         impressionData={impressionData}

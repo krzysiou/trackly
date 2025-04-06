@@ -1,7 +1,15 @@
 import React from 'react';
+import { cookies } from 'next/headers';
 
 import { NotFound } from '../src/components/core/NotFound/NotFound';
+import { config } from '../src/config/config';
+
+const { sessionCookieName } = config;
 
 export default async function Page() {
-  return <NotFound />;
+  const cookieStore = cookies();
+  const userId = JSON.parse(cookieStore.get(sessionCookieName)?.value || 'null')
+    ?.userId;
+
+  return <NotFound userId={userId} />;
 }

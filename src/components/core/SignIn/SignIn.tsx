@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { SignInStyled } from './SignIn.styles';
@@ -10,13 +10,25 @@ import { SignInIcon } from '../../common/Icons/SignInIcon';
 import { Button } from '../../common/Button/Button';
 import { DeleteIcon } from '../../common/Icons/DeleteIcon';
 import { useAuthorization } from '../../hooks/AuthorizationHook';
+import { tracker } from '../../../tracker';
 
-const SignIn: React.FC = () => {
+type SignInProps = {
+  userId?: string;
+};
+
+const SignIn: React.FC<SignInProps> = ({ userId }) => {
   const [username, setUsername] = useState<string>();
   const [password, setPassword] = useState<string>();
   const [error, setError] = useState<string>();
 
   const { signIn } = useAuthorization();
+
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'Sign In',
+    });
+  }, [userId]);
 
   const clear = (callback: React.Dispatch<React.SetStateAction<string>>) => (
     <button className="clear" onClick={() => callback('')}>

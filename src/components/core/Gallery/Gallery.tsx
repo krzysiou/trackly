@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 
 import { Section } from '../../common/Section/Section';
@@ -13,8 +13,20 @@ import threeImage from '../../../../public/images/scr3.png';
 import fourImage from '../../../../public/images/scr4.png';
 import fiveImage from '../../../../public/images/scr5.png';
 import sixImage from '../../../../public/images/scr6.png';
+import { tracker } from '../../../tracker';
 
-const Gallery: React.FC = () => {
+type GalleryProps = {
+  userId?: string;
+};
+
+const Gallery: React.FC<GalleryProps> = ({ userId }) => {
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'Gallery',
+    });
+  }, [userId]);
+
   return (
     <GalleryStyled>
       <Background />

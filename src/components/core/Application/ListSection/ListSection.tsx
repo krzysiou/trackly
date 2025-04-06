@@ -20,16 +20,19 @@ import { ImpressionTable } from './ImpressionTable/ImpressionTable';
 import { EngagementTable } from './EngagementTable/EngagementTable';
 import { Button } from '../../../common/Button/Button';
 import { SearchIcon } from '../../../common/Icons/SearchIcon';
+import { tracker } from '../../../../tracker';
 
 const { sessionCookieName } = config;
 
 type ApplicationsParams = {
+  userId?: string;
   applicationData: ApplicationType;
   engagementData: EngagementEvent[];
   impressionData: ImpressionEvent[];
 };
 
 const ListSection: React.FC<ApplicationsParams> = ({
+  userId,
   applicationData,
   engagementData: initialEngagementData,
   impressionData: initialImpressionData,
@@ -59,6 +62,13 @@ const ListSection: React.FC<ApplicationsParams> = ({
     string,
     Record<string, string>
   > | null>(null);
+
+  useEffect(() => {
+    tracker.trackViewPage({
+      actor: userId || 'unknown',
+      targetType: 'List Section',
+    });
+  }, [userId]);
 
   const getEngagementData = useCallback(
     async (page: number) => {
