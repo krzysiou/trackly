@@ -52,12 +52,7 @@ const Application: React.FC<ApplicationsParams> = ({
         impressionData={impressionData}
       />
     ) : (
-      <GraphSection
-        userId={userId}
-        applicationData={applicationData}
-        engagementData={engagementData}
-        impressionData={impressionData}
-      />
+      <GraphSection userId={userId} applicationData={applicationData} />
     );
 
   return (

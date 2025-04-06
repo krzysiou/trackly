@@ -151,15 +151,11 @@ const { sessionCookieName } = config;
 type ApplicationsParams = {
   userId?: string;
   applicationData: ApplicationType;
-  engagementData: EngagementEvent[];
-  impressionData: ImpressionEvent[];
 };
 
 const GraphSection: React.FC<ApplicationsParams> = ({
   userId,
   applicationData,
-  engagementData: initialEngagementData,
-  impressionData: initialImpressionData,
 }) => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
@@ -175,12 +171,8 @@ const GraphSection: React.FC<ApplicationsParams> = ({
   const [engagementError, setEngagementError] = useState<string>('');
   const [impressionError, setImpressionError] = useState<string>('');
 
-  const [engagementData, setEngagementData] = useState<EngagementEvent[]>(
-    initialEngagementData
-  );
-  const [impressionData, setImpressionData] = useState<ImpressionEvent[]>(
-    initialImpressionData
-  );
+  const [engagementData, setEngagementData] = useState<EngagementEvent[]>([]);
+  const [impressionData, setImpressionData] = useState<ImpressionEvent[]>([]);
 
   useEffect(() => {
     tracker.trackViewPage({
