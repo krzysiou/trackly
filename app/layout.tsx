@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { usePathname } from 'next/navigation';
 
 import { StyledComponentsRegistry } from './registry';
 import { Reset } from '../public/styles/Reset.styles';
@@ -29,9 +28,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const isPatientRoute = pathname.split('/')[1] === 'patient';
-
   const { session } = useAuthorization();
 
   useEffect(() => {
@@ -70,9 +66,9 @@ export default function RootLayout({
             <Reset />
             <Globals />
             <body>
-              {!isPatientRoute && <Navbar />}
+              <Navbar />
               {children}
-              {!isPatientRoute && <Footer />}
+              <Footer />
             </body>
           </ThemeProvider>
         </StyledComponentsRegistry>
